@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/VideoPlatform">
+        <file>Resources/image/add.png</file>
+        <file>Resources/image/add-line_horizontal.png</file>
+        <file>Resources/image/add-line_vertical.png</file>
+        <file>Resources/image/array_down.png</file>
+        <file>Resources/image/btn_pause_normal.png</file>
+        <file>Resources/image/btn_pause_press.png</file>
+        <file>Resources/image/btn_play_normal.png</file>
+        <file>Resources/image/btn_play_press.png</file>
+        <file>Resources/image/btncheckoff.png</file>
+        <file>Resources/image/btncheckon.png</file>
+        <file>Resources/image/checkbox_checked.png</file>
+        <file>Resources/image/checkbox_unchecked.png</file>
+        <file>Resources/image/close.png</file>
+        <file>Resources/image/delete.png</file>
+        <file>Resources/image/error.png</file>
+        <file>Resources/image/excel.png</file>
+        <file>Resources/image/Font Awesome Cheatsheet.png</file>
+        <file>Resources/image/fontawesome-webfont.ttf</file>
+        <file>Resources/image/info.png</file>
+        <file>Resources/image/ipc_press.png</file>
+        <file>Resources/image/nvr.png</file>
+        <file>Resources/image/qt_zh_CN.qm</file>
+        <file>Resources/image/question.png</file>
+        <file>Resources/image/radio_normal.png</file>
+        <file>Resources/image/radio_selected.png</file>
+        <file>Resources/image/sub-line_horizontal.png</file>
+        <file>Resources/image/sub-line_vertical.png</file>
+        <file>Resources/image/update.png</file>
+        <file>Resources/image/ipc_normal.bmp</file>
+        <file>Resources/image/nvbmp.bmp</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,91 @@
+﻿生成启动时间为 2016/4/25 1:02:36。
+     1>项目“C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer\VideoPlatformServer.vcxproj”在节点 3 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“Debug\VideoPlatformServer.lastbuildstate”。
+       InitializeBuildStatus:
+         正在对“Debug\VideoPlatformServer.unsuccessfulbuild”执行 Touch 任务。
+       ClCompile:
+         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CDADeviceFactory.cpp CDADeviceManager.cpp CZmqMsg.cpp server.cpp VideoServermain.cpp
+         VideoServermain.cpp
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2059: 语法错误:“;”
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2238: 意外的标记位于“;”之前
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2059: 语法错误:“;”
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2238: 意外的标记位于“;”之前
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\videoservermain.cpp(10): error C2665: “std::basic_string<_Elem,_Traits,_Ax>::basic_string”: 15 个重载中没有一个可以转换所有参数类型
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(560): 可能是“std::basic_string<_Elem,_Traits,_Ax>::basic_string(const std::basic_string<_Elem,_Traits,_Ax> &,unsigned int,unsigned int)”
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(576): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(const _Elem *,unsigned int)”
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(597): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(const _Elem *,const std::allocator<_Ty> &)”
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>,
+                     _Ty=char
+                 ]
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(604): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(unsigned int,_Elem)”
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(672): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(const char *,const char *)”
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(691): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(std::_String_const_iterator<_Elem,_Traits,_Alloc>,std::_String_const_iterator<_Elem,_Traits,_Alloc>)”
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>,
+                     _Alloc=std::allocator<char>
+                 ]
+                 尝试匹配参数列表“(const char [8], std::basic_string<_Elem,_Traits,_Ax>)”时
+                 with
+                 [
+                     _Elem=char,
+                     _Traits=std::char_traits<char>,
+                     _Ax=std::allocator<char>
+                 ]
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\videoservermain.cpp(10): error C2143: 语法错误 : 缺少“)”(在“;”的前面)
+         server.cpp
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2059: 语法错误:“;”
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2238: 意外的标记位于“;”之前
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2059: 语法错误:“;”
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2238: 意外的标记位于“;”之前
+         CZmqMsg.cpp
+         CDADeviceManager.cpp
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicemanager.h(49): error C2146: 语法错误: 缺少“;”(在标识符“m_deviceFactory”的前面)
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicemanager.h(49): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicemanager.h(49): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+         CDADeviceFactory.cpp
+     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicefactory.cpp(38): error C2440: “return”: 无法从“int”转换为“CDADeviceInterface *”
+                 从整型转换为指针类型要求 reinterpret_cast、C 样式转换或函数样式转换
+         正在生成代码...
+     1>已完成生成项目“C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer\VideoPlatformServer.vcxproj”(rebuild 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:07.16
