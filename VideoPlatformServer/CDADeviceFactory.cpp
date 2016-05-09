@@ -2,6 +2,7 @@
 #include "publicDef.h"
 #include "CDADeviceInterface.h"
 #include "CDADeviceFactory.h"
+#include "CDAHikDevice.h"
 
 /**
  @brief 获取设备类对象
@@ -10,6 +11,7 @@
 */
 CDADeviceInterface* CDADeviceFactory::getDevice(IN DEVICEINFO& stDeviceInfo)
 {
+    CDAHikDevice *member = new CDAHikDevice;
     switch(stDeviceInfo.enDeviceType)
     {
         case IPC:
@@ -35,5 +37,5 @@ CDADeviceInterface* CDADeviceFactory::getDevice(IN DEVICEINFO& stDeviceInfo)
 
     }
 
-    return 1;
+    return member;
 }

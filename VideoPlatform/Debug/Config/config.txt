@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+  <Device>
+	<DeviceName>HIK</DeviceName>
+	<DeviceIP>208.208.120.244</DeviceIP>
+	<DevicePort>6600<DevicePort>
+	<DeviceChlNum>16</DeviceChlNum>
+	<DeviceType>1</DeviceType>
+	<DeviceLoginName>admin</DeviceLoginName>
+	<DeviceLoginPwd>123456</DeviceLoginPwd>
+  </Device>
+</configuration>

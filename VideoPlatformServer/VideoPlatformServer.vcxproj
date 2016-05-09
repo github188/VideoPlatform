@@ -41,11 +41,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libzmq-v90-mt-4_0_4.lib;libzmq-v90-mt-gd-4_0_4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libzmq-v90-mt-4_0_4.lib;libzmq-v90-mt-gd-4_0_4.lib;Dnsapi.lib;Iphlpapi.lib;Ws2_32.lib;osip2.lib;osipparser2.lib;exosip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -65,6 +65,8 @@
   <ItemGroup>
     <ClCompile Include="CDADeviceFactory.cpp" />
     <ClCompile Include="CDADeviceManager.cpp" />
+    <ClCompile Include="CDAHikDevice.cpp" />
+    <ClCompile Include="CDASip.cpp" />
     <ClCompile Include="CZmqMsg.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="VideoServermain.cpp" />
@@ -73,9 +75,14 @@
     <ClInclude Include="CDADeviceFactory.h" />
     <ClInclude Include="CDADeviceInterface.h" />
     <ClInclude Include="CDADeviceManager.h" />
+    <ClInclude Include="CDAHikDevice.h" />
+    <ClInclude Include="CDASip.h" />
     <ClInclude Include="CZmqMsg.h" />
     <ClInclude Include="publicDef.h" />
     <ClInclude Include="server.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

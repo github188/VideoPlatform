@@ -31,6 +31,12 @@
       <height>681</height>
      </rect>
     </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::CustomContextMenu</enum>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
     <column>
      <property name="text">
       <string notr="true">1</string>
@@ -154,6 +160,9 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::CustomContextMenu</enum>
+         </property>
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;???&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -246,6 +255,38 @@
      </property>
      <property name="text">
       <string>close</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labConfig">
+     <property name="geometry">
+      <rect>
+       <x>330</x>
+       <y>0</y>
+       <width>52</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>系统设置</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labAlarm">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>0</y>
+       <width>52</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>告警</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>

@@ -7,12 +7,12 @@ public:
     /**
      @brief 构造函数
      */
-    CDADeviceInterface();
+//    CDADeviceInterface();
 
     /**
      @brief 析构函数
      */
-    ~CDADeviceInterface();
+//    ~CDADeviceInterface();
 
     /**
      @brief 打开设备

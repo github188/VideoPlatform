@@ -46,7 +46,7 @@ private:
     CDADeviceMangerSingleton &operator = (const CDADeviceMangerSingleton &);
 
 private:
-    CDADeviceFactory m_deviceFactory;
+    //CDADeviceFactory m_deviceFactory;
 };
 
 #endif

@@ -22,6 +22,7 @@
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "userTreeWidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -29,7 +30,7 @@ class Ui_VideoPlatformClass
 {
 public:
     QWidget *widget_main;
-    QTreeWidget *treeMain;
+    CUserTreeWidget *treeMain;
     QGroupBox *gboxMain;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *lay1;
@@ -43,6 +44,8 @@ public:
     QWidget *widget_menu;
     QPushButton *btnMenu_Min;
     QPushButton *btnMenu_Close;
+    QLabel *labConfig;
+    QLabel *labAlarm;
     QLabel *lab_Title;
 
     void setupUi(QDialog *VideoPlatformClass)
@@ -53,12 +56,14 @@ public:
         widget_main = new QWidget(VideoPlatformClass);
         widget_main->setObjectName(QStringLiteral("widget_main"));
         widget_main->setGeometry(QRect(1, 29, 1143, 691));
-        treeMain = new QTreeWidget(widget_main);
+        treeMain = new CUserTreeWidget(widget_main);
         QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         treeMain->setHeaderItem(__qtreewidgetitem);
         treeMain->setObjectName(QStringLiteral("treeMain"));
         treeMain->setGeometry(QRect(5, 5, 256, 681));
+        treeMain->setContextMenuPolicy(Qt::CustomContextMenu);
+        treeMain->setAcceptDrops(false);
         gboxMain = new QGroupBox(widget_main);
         gboxMain->setObjectName(QStringLiteral("gboxMain"));
         gboxMain->setGeometry(QRect(266, 5, 881, 691));
@@ -118,6 +123,7 @@ public:
         labVideo3->setEnabled(true);
         sizePolicy1.setHeightForWidth(labVideo3->sizePolicy().hasHeightForWidth());
         labVideo3->setSizePolicy(sizePolicy1);
+        labVideo3->setContextMenuPolicy(Qt::CustomContextMenu);
         labVideo3->setFrameShape(QFrame::Panel);
         labVideo3->setAlignment(Qt::AlignCenter);
         labVideo3->setIndent(-3);
@@ -149,6 +155,14 @@ public:
         btnMenu_Close->setObjectName(QStringLiteral("btnMenu_Close"));
         btnMenu_Close->setGeometry(QRect(430, 0, 40, 28));
         btnMenu_Close->setFocusPolicy(Qt::NoFocus);
+        labConfig = new QLabel(widget_menu);
+        labConfig->setObjectName(QStringLiteral("labConfig"));
+        labConfig->setGeometry(QRect(330, 0, 52, 28));
+        labConfig->setAlignment(Qt::AlignCenter);
+        labAlarm = new QLabel(widget_menu);
+        labAlarm->setObjectName(QStringLiteral("labAlarm"));
+        labAlarm->setGeometry(QRect(270, 0, 52, 28));
+        labAlarm->setAlignment(Qt::AlignCenter);
         lab_Title = new QLabel(widget_title);
         lab_Title->setObjectName(QStringLiteral("lab_Title"));
         lab_Title->setGeometry(QRect(30, 0, 438, 28));
@@ -176,6 +190,8 @@ public:
         lab_Icon->setText(QString());
         btnMenu_Min->setText(QApplication::translate("VideoPlatformClass", "Min", 0));
         btnMenu_Close->setText(QApplication::translate("VideoPlatformClass", "close", 0));
+        labConfig->setText(QApplication::translate("VideoPlatformClass", "\347\263\273\347\273\237\350\256\276\347\275\256", 0));
+        labAlarm->setText(QApplication::translate("VideoPlatformClass", "\345\221\212\350\255\246", 0));
         lab_Title->setText(QApplication::translate("VideoPlatformClass", "??????", 0));
     } // retranslateUi
 

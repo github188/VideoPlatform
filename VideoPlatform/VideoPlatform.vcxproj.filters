@@ -33,6 +33,42 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="FrmConfig">
+      <UniqueIdentifier>{45b876ea-594e-417f-878d-e53590b8c153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrmConfig\Source Files">
+      <UniqueIdentifier>{357e2f55-dbf3-4994-be5d-62d2d42d6cfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrmConfig\Header Files">
+      <UniqueIdentifier>{710077af-4add-4689-881b-8d111313e361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Alarm">
+      <UniqueIdentifier>{1942b281-d387-40c3-a411-30a63b35baae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Alarm\Resource Files">
+      <UniqueIdentifier>{91f8c2eb-3c6e-4df5-a120-008b71d47439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Alarm\Header Files">
+      <UniqueIdentifier>{e73a9c55-c299-4411-835e-f277c0495821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MessageCenter">
+      <UniqueIdentifier>{b62dafa5-af09-40ef-b99d-b97c8a47c156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MessageCenter\Source Files">
+      <UniqueIdentifier>{36e116fd-6c10-4940-b76a-c92c100190e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MessageCenter\Header Files">
+      <UniqueIdentifier>{6bc70753-5cd4-416b-a64a-6706c1e0bc9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdPart">
+      <UniqueIdentifier>{5cad33d4-136d-4ef9-bdb0-d92fb8833d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdPart\unview">
+      <UniqueIdentifier>{13a0dfbe-2ff7-47c4-9a7e-55cf131241af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdPart\unview\Header Files">
+      <UniqueIdentifier>{3b7588df-f45f-492b-985c-541f70081d26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +107,57 @@
     <ClCompile Include="GeneratedFiles\Release\moc_xmloperator.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_frmconfig.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_frmconfig.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_switchbutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_switchbutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="switchbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="myapp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="frmconfig.cpp">
+      <Filter>FrmConfig\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="alarm.cpp">
+      <Filter>Alarm\Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CDASip.cpp">
+      <Filter>MessageCenter\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_sipthread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_sipthread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="sipthread.cpp">
+      <Filter>MessageCenter\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xmlConfigOperator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_xmlConfigOperator.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_xmlConfigOperator.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_alarm.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_alarm.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="videoplatform.h">
@@ -88,6 +175,27 @@
     <CustomBuild Include="xmloperator.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="frmConfig.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="switchbutton.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="frmconfig.h">
+      <Filter>FrmConfig\Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="alarm.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="sipthread.h">
+      <Filter>MessageCenter\Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="xmlConfigOperator.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="alarm.h">
+      <Filter>Alarm\Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_videoplatform.h">
@@ -95,6 +203,24 @@
     </ClInclude>
     <ClInclude Include="iconhelper.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_frmConfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="myapp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_alarm.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CDASip.h">
+      <Filter>MessageCenter\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="publicDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uniview\include\NetDEVSDK.h">
+      <Filter>ThirdPart\unview\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

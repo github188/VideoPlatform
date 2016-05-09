@@ -1,91 +1,31 @@
-﻿生成启动时间为 2016/4/25 1:02:36。
-     1>项目“C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer\VideoPlatformServer.vcxproj”在节点 3 上(rebuild 个目标)。
-     1>_PrepareForClean:
-         正在删除文件“Debug\VideoPlatformServer.lastbuildstate”。
-       InitializeBuildStatus:
+﻿生成启动时间为 2016/5/15 22:57:34。
+     1>项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\VideoPlatformServer.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
          正在对“Debug\VideoPlatformServer.unsuccessfulbuild”执行 Touch 任务。
        ClCompile:
-         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CDADeviceFactory.cpp CDADeviceManager.cpp CZmqMsg.cpp server.cpp VideoServermain.cpp
-         VideoServermain.cpp
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2059: 语法错误:“;”
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2238: 意外的标记位于“;”之前
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2059: 语法错误:“;”
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2238: 意外的标记位于“;”之前
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\videoservermain.cpp(10): error C2665: “std::basic_string<_Elem,_Traits,_Ax>::basic_string”: 15 个重载中没有一个可以转换所有参数类型
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>
-                 ]
-                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(560): 可能是“std::basic_string<_Elem,_Traits,_Ax>::basic_string(const std::basic_string<_Elem,_Traits,_Ax> &,unsigned int,unsigned int)”
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>
-                 ]
-                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(576): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(const _Elem *,unsigned int)”
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>
-                 ]
-                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(597): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(const _Elem *,const std::allocator<_Ty> &)”
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>,
-                     _Ty=char
-                 ]
-                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(604): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(unsigned int,_Elem)”
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>
-                 ]
-                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(672): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(const char *,const char *)”
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>
-                 ]
-                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\xstring(691): 或       “std::basic_string<_Elem,_Traits,_Ax>::basic_string(std::_String_const_iterator<_Elem,_Traits,_Alloc>,std::_String_const_iterator<_Elem,_Traits,_Alloc>)”
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>,
-                     _Alloc=std::allocator<char>
-                 ]
-                 尝试匹配参数列表“(const char [8], std::basic_string<_Elem,_Traits,_Ax>)”时
-                 with
-                 [
-                     _Elem=char,
-                     _Traits=std::char_traits<char>,
-                     _Ax=std::allocator<char>
-                 ]
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\videoservermain.cpp(10): error C2143: 语法错误 : 缺少“)”(在“;”的前面)
-         server.cpp
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2059: 语法错误:“;”
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(7): error C2238: 意外的标记位于“;”之前
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2059: 语法错误:“;”
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\server.h(8): error C2238: 意外的标记位于“;”之前
-         CZmqMsg.cpp
-         CDADeviceManager.cpp
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicemanager.h(49): error C2146: 语法错误: 缺少“;”(在标识符“m_deviceFactory”的前面)
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicemanager.h(49): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicemanager.h(49): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-         CDADeviceFactory.cpp
-     1>c:\users\paper~news\desktop\videoplatform_1\videoplatformserver\cdadevicefactory.cpp(38): error C2440: “return”: 无法从“int”转换为“CDADeviceInterface *”
-                 从整型转换为指针类型要求 reinterpret_cast、C 样式转换或函数样式转换
-         正在生成代码...
-     1>已完成生成项目“C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer\VideoPlatformServer.vcxproj”(rebuild 个目标)的操作 - 失败。
+         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CDASip.cpp
+         CDASip.cpp
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\cdasip.cpp(84): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(363) : 参见“_snprintf”的声明
+     1>cl : 命令行 warning D9028: 最小重新生成失败，正在转换为标准生成
+       Link:
+         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.exe" /NOLOGO /LIBPATH:"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" "libzmq-v90-mt-4_0_4.lib" "libzmq-v90-mt-gd-4_0_4.lib" Dnsapi.lib Iphlpapi.lib Ws2_32.lib osip2.lib osipparser2.lib exosip.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\VideoPlatformServer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.lib" /MACHINE:X86 Debug\CDADeviceFactory.obj
+         Debug\CDADeviceManager.obj
+         Debug\CDAHikDevice.obj
+         Debug\CDASip.obj
+         Debug\CZmqMsg.obj
+         Debug\server.obj
+         Debug\VideoServermain.obj
+         LINK : 没有找到 C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.exe 或上一个增量链接没有生成它；正在执行完全链接
+     1>LINK : warning LNK4098: 默认库“LIBCMTD”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+         VideoPlatformServer.vcxproj -> C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.exe;#1" /manifest Debug\VideoPlatformServer.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         正在删除文件“Debug\VideoPlatformServer.unsuccessfulbuild”。
+         正在对“Debug\VideoPlatformServer.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\VideoPlatformServer.vcxproj”(build 个目标)的操作。
 
-生成失败。
+生成成功。
 
-已用时间 00:00:07.16
+已用时间 00:00:02.95

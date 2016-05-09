@@ -28,7 +28,7 @@
         <file>Resources/image/sub-line_horizontal.png</file>
         <file>Resources/image/sub-line_vertical.png</file>
         <file>Resources/image/update.png</file>
-        <file>Resources/image/ipc_normal.bmp</file>
         <file>Resources/image/nvbmp.bmp</file>
+        <file>Resources/image/ipc_normal.png</file>
     </qresource>
 </RCC>
