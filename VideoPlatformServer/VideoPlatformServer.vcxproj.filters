@@ -36,9 +36,6 @@
     <ClCompile Include="VideoServermain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CZmqMsg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CDADeviceManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CZmqMsg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CDADeviceManager.h">
       <Filter>头文件</Filter>
     </ClInclude>

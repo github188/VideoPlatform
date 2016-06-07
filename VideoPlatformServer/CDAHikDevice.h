@@ -28,22 +28,6 @@ public:
     void closeDevice();
 
     /**
-     @brief 打开通道
-     @param[IN]
-     @param[OUT]
-     @return
-     */
-    void openChl();
-
-    /**
-     @brief 关闭通道
-     @param[IN]
-     @param[OUT]
-     @return
-     */
-    void closeChl();
-
-    /**
      @brief 初始化SDK
      @param[IN] 
      @param[OUT]

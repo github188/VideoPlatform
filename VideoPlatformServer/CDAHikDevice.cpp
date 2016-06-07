@@ -32,28 +32,6 @@ void CDAHikDevice::closeDevice()
 }
 
 /**
- @brief 打开通道
- @param[IN]
- @param[OUT]
- @return
- */
-void CDAHikDevice::openChl()
-{
-
-}
-
-/**
- @brief 关闭通道
- @param[IN]
- @param[OUT]
- @return
- */
-void CDAHikDevice::closeChl()
-{
-
-}
-
-/**
  @brief 初始化SDK
  @param[IN] 
  @param[OUT]

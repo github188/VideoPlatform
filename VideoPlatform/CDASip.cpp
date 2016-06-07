@@ -67,7 +67,7 @@ void CDASip::sip_server_run()
 /**
  * 启动监听服务器端的消息
  */
-void CDASip::sip_client_receivemsg()
+bool CDASip::sip_client_receivemsg()
 {
     while(1)
     {
@@ -75,7 +75,7 @@ void CDASip::sip_client_receivemsg()
         if(m_sip_event_je == NULL)
         {
             /* 没有回复或者超时 */
-            break;
+            return FALSE;
         }
 
         switch(m_sip_event_je->type)
@@ -88,6 +88,8 @@ void CDASip::sip_client_receivemsg()
                 qDebug("---answered---");
                 eXosip_call_build_ack(m_sip_event_je->did, &m_sip_message_ack);
                 eXosip_call_send_ack(m_sip_event_je->did, m_sip_message_ack);
+
+                return TRUE;
                 break;
             }
             case EXOSIP_CALL_CLOSED:break;
@@ -98,7 +100,7 @@ void CDASip::sip_client_receivemsg()
             }
         }
     }
-    return;
+    return TRUE;
 }
 
 /**

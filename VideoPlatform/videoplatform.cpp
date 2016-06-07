@@ -31,8 +31,9 @@ VideoPlatform::VideoPlatform(QWidget *parent)
     this->InitForm();    /* 初始化窗体数据 */
     this->InitVideo();   /* 初始化视频布局载体数据 */
     this->LoadConfig();  /* 加载配置文件数据 */
+    this->InitSDK();     /* 初始化第三方设备SDK播放库 */
 
-     setAcceptDrops(true);
+    setAcceptDrops(true);
 
      /* 启动通信消息模块 */
     m_sipthread.start();
@@ -255,6 +256,19 @@ void VideoPlatform::LoadConfig()
 /* 初始化第三方SDK */
 void VideoPlatform::InitSDK()
 {
+    int ret = NETDEV_Init();
+    if(0 == ret)
+    {
+        qDebug("call NETDEV_Init failed!");
+    }
+    NETDEV_DEVICE_INFO_S stDevInfo = {0};
+    LPVOID lpDevHandle;
+
+    m_lpDevHandle = NETDEV_Login("192.168.1.160", 80, "admin", "admin", &stDevInfo);
+    if(NULL == m_lpDevHandle)
+    {
+        qDebug("call NETDEV_Login failed");
+    }
 
     return;
 }
@@ -280,15 +294,19 @@ void VideoPlatform::deleteVideo_one()
             {
 
             }
-            /* ------------------------------------- */
-            NETDEV_StopRealPlay(m_lpPlayHandle);
-            /* ------------------------------------- */
+
+            if(iter->lPlayHandle != NULL)
+            {
+                NETDEV_StopRealPlay(iter->lPlayHandle);
+            }
+
             /* 删除该数据 */
             m_mapLabelManage.erase(iter);
         }
         else
         {
             /* 该Label没有播放视频 */
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口没有播放视频，无法进行关闭操作！"));
         }
     }
     else if(m_tempLab == ui.labVideo2)
@@ -306,12 +324,17 @@ void VideoPlatform::deleteVideo_one()
             {
 
             }
+            if(iter->lPlayHandle != NULL)
+            {
+                NETDEV_StopRealPlay(iter->lPlayHandle);
+            }
             /* 删除该数据 */
             m_mapLabelManage.erase(iter);
         }
         else
         {
             /* 该Label没有播放视频 */
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口没有播放视频，无法进行关闭操作！"));
         }
     }
     else if(m_tempLab == ui.labVideo3)
@@ -329,12 +352,17 @@ void VideoPlatform::deleteVideo_one()
             {
 
             }
+            if(iter->lPlayHandle != NULL)
+            {
+                NETDEV_StopRealPlay(iter->lPlayHandle);
+            }
             /* 删除该数据 */
             m_mapLabelManage.erase(iter);
         }
         else
         {
             /* 该Label没有播放视频 */
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口没有播放视频，无法进行关闭操作！"));
         }
     }
     else if(m_tempLab == ui.labVideo4)
@@ -352,12 +380,17 @@ void VideoPlatform::deleteVideo_one()
             {
 
             }
+            if(iter->lPlayHandle != NULL)
+            {
+                NETDEV_StopRealPlay(iter->lPlayHandle);
+            }
             /* 删除该数据 */
             m_mapLabelManage.erase(iter);
         }
         else
         {
             /* 该Label没有播放视频 */
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口没有播放视频，无法进行关闭操作！"));
         }
     }
 
@@ -492,7 +525,6 @@ bool VideoPlatform::eventFilter(QObject *obj, QEvent *event)
 {
     int ret = 0;
     QMouseEvent *MouseEvent = static_cast<QMouseEvent *>(event);
-    QMap<QString, SIPCOMMINFO>::iterator iter;
 
     if ((event->type() == QEvent::MouseButtonDblClick) && (MouseEvent->buttons() == Qt::LeftButton))
     {
@@ -557,7 +589,7 @@ bool VideoPlatform::eventFilter(QObject *obj, QEvent *event)
     else if(event->type() == QEvent::Drop)
     {
         QLabel *labTemp = qobject_cast<QLabel *>(obj);
-        if((obj == ui.labVideo1)| (obj == ui.labVideo2) || (obj == ui.labVideo3) || (obj == ui.labVideo4))
+        if((obj == ui.labVideo1) || (obj == ui.labVideo2) || (obj == ui.labVideo3) || (obj == ui.labVideo4))
         {
             QDropEvent *event1 = static_cast<QDropEvent *>(event);
             const QMimeData *data = event1->mimeData();
@@ -566,235 +598,10 @@ bool VideoPlatform::eventFilter(QObject *obj, QEvent *event)
                 QByteArray csvData = data->data("text");
                 QString csvText = QString::fromUtf8(csvData);
 
-                /* 判断该窗口是否已经在播放视频 */
-                if(obj == ui.labVideo1)
+                ret = this->startPlayVideo(csvText, obj);
+                if(TRUE != ret)
                 {
-                    iter = m_mapLabelManage.find("labVideo1");
-                    if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
-                    {
-                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
-                    }
-                    else    /* 该窗口没有播放视频，则播放视频 */
-                    {
-                        /* 获取需要播放视频的设备信息 */
-                        for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
-                        {
-                            if(m_listEnabledIPCInfo.at(i).strDeviceName == csvText)
-                            {
-                                /* 保存窗口信息和设备信息 */
-                                //memcpy(&m_mapLabelManage["labVideo1"].stDeviceInfo, &m_listEnabledIPCInfo.at(i), sizeof(IPCINFO));
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
-                                m_mapLabelManage["labVideo1"].stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
-                                m_mapLabelManage["labVideo1"].hWndHandle = (HWND)ui.labVideo1->winId();;
-                                m_mapLabelManage["labVideo1"].nWndNum = 1;
-
-                                /* 向服务器发送请求视频消息 */
-                                ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &m_mapLabelManage["labVideo1"]);
-                                if(1 != ret)
-                                {
-                                    QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
-                                    QMap<QString, SIPCOMMINFO>::iterator iter = m_mapLabelManage.find("labVideo1");
-                                    if(iter != m_mapLabelManage.end())
-                                    {
-                                        m_mapLabelManage.erase(iter);
-                                    }
-                                }
-                                else
-                                {
-
-                                }
-#if 1
-                                /*---------------------------------------------------*/
-                                int ret = NETDEV_Init();
-                                if(0 == ret)
-                                {
-                                    qDebug("call NETDEV_Init failed!");
-                                    break;
-                                }
-                                // http://39.189.195.31:50080/
-                                NETDEV_DEVICE_INFO_S stDevInfo = {0};
-                                LPVOID lpDevHandle;
-
-                               m_lpDevHandle = NETDEV_Login("192.168.1.160", 80, "admin", "admin", &stDevInfo);
-                                if(NULL == m_lpDevHandle)
-                                {
-                                    qDebug("call NETDEV_Login failed");
-                                }
-
-                                NETDEV_PREVIEWINFO_S stNetInfo = {0};
-                                //LPVOID lpPlayHandle;
-                                stNetInfo.dwChannelID = 1;
-                                stNetInfo.hPlayWnd = (LPVOID)m_mapLabelManage["labVideo1"].hWndHandle;
-                                stNetInfo.dwStreamType = NETDEV_LIVE_STREAM_INDEX_MAIN;
-                                stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
-                                m_lpPlayHandle = NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
-                                if(NULL == m_lpPlayHandle)
-                                {
-                                    qDebug("call NETDEV_RealPlay failed");
-                                    QMessageBox::information(this, "this", "failed to palyview.");
-                                }
-                                /*---------------------------------------------------*/
-#endif
-                            }
-                        }
-                    }
-                }
-                else if(obj == ui.labVideo2)
-                {
-                    iter = m_mapLabelManage.find("labVideo2");
-                    if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
-                    {
-                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
-                    }
-                    else    /* 该窗口没有播放视频，则播放视频 */
-                    {
-                        /* 获取需要播放视频的设备信息 */
-                        for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
-                        {
-                            if(m_listEnabledIPCInfo.at(i).strDeviceName == csvText)
-                            {
-                                /* 保存窗口信息和设备信息 */
-                                //memcpy(&m_mapLabelManage["labVideo2"].stDeviceInfo, &m_listEnabledIPCInfo.at(i), sizeof(IPCINFO));
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
-                                m_mapLabelManage["labVideo2"].stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
-                                m_mapLabelManage["labVideo2"].hWndHandle = (HWND)ui.labVideo2->winId();
-                                m_mapLabelManage["labVideo2"].nWndNum = 2;
-
-                                /* 向服务器发送请求视频消息 */
-                                ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &m_mapLabelManage["labVideo2"]);
-                                if(1 != ret)
-                                {
-                                    QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
-                                    QMap<QString, SIPCOMMINFO>::iterator iter = m_mapLabelManage.find("labVideo2");
-                                    if(iter != m_mapLabelManage.end())
-                                    {
-                                        m_mapLabelManage.erase(iter);
-                                    }
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                        }
-                    }
-                }
-                else if(obj == ui.labVideo3)
-                {
-                    iter = m_mapLabelManage.find("labVideo3");
-                    if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
-                    {
-                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
-                    }
-                    else    /* 该窗口没有播放视频，则播放视频 */
-                    {
-                        /* 获取需要播放视频的设备信息 */
-                        for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
-                        {
-                            if(m_listEnabledIPCInfo.at(i).strDeviceName == csvText)
-                            {
-                                /* 保存窗口信息和设备信息 */
-                                //memcpy(&m_mapLabelManage["labVideo3"].stDeviceInfo, &m_listEnabledIPCInfo.at(i), sizeof(IPCINFO));
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
-                                m_mapLabelManage["labVideo3"].stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
-                                m_mapLabelManage["labVideo3"].hWndHandle = (HWND)ui.labVideo3->winId();
-                                m_mapLabelManage["labVideo3"].nWndNum = 3;
-
-                                /* 向服务器发送请求视频消息 */
-                                ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &m_mapLabelManage["labVideo3"]);
-                                if(1 != ret)
-                                {
-                                    QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
-                                    QMap<QString, SIPCOMMINFO>::iterator iter = m_mapLabelManage.find("labVideo3");
-                                    if(iter != m_mapLabelManage.end())
-                                    {
-                                        m_mapLabelManage.erase(iter);
-                                    }
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                        }
-                    }
-                }
-                else 
-                {
-                    iter = m_mapLabelManage.find("labVideo4");
-                    if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
-                    {
-                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
-                    }
-                    else    /* 该窗口没有播放视频，则播放视频 */
-                    {
-                        /* 获取需要播放视频的设备信息 */
-                        for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
-                        {
-                            if(m_listEnabledIPCInfo.at(i).strDeviceName == csvText)
-                            {
-                                /* 保存窗口信息和设备信息 这么memcpy存在问题，需要以后定位一下*/
-                                //memcpy(&m_mapLabelManage["labVideo4"].stDeviceInfo, &m_listEnabledIPCInfo.at(i), sizeof(IPCINFO));
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
-                                m_mapLabelManage["labVideo4"].stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
-                                m_mapLabelManage["labVideo4"].hWndHandle = (HWND)ui.labVideo4->winId();
-                                m_mapLabelManage["labVideo4"].nWndNum = 4;
-
-                                /* 向服务器发送请求视频消息 */
-                                ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &m_mapLabelManage["labVideo4"]);
-                                if(1 != ret)
-                                {
-                                    QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
-                                    /* 删除m_mapLabelManage中的数据 */
-                                    QMap<QString, SIPCOMMINFO>::iterator iter = m_mapLabelManage.find("labVideo4");
-                                    if(iter != m_mapLabelManage.end())
-                                    {
-                                        m_mapLabelManage.erase(iter);
-                                    }
-                                }
-                                else
-                                {
-
-                                }
-                            }
-                        }
-                    }
+                    QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("播放视频失败！"));
                 }
             }
         }
@@ -848,6 +655,8 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
 {
     QString strSendInfo;
     QByteArray byteArrayTemp;
+    int ret = TRUE;
+    int ret1 = TRUE;
 
     switch(enMsgType)
     {
@@ -858,7 +667,7 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
             /* 发起invite请求 */
             m_sip.sip_call_build_initial_invite("nihao");
             strSendInfo.append("v=0\r\n");
-            strSendInfo.append("o=anonymous 0 0 IN IP4 0.0.0.0\r\n");
+            strSendInfo.append("o=anonymous 0 0 IN IP4 127.0.0.1\r\n");
             strSendInfo.append("t=1 10\r\n");
             strSendInfo.append("a=DeviceName:");
             strSendInfo = strSendInfo + pstSipSendInfo->stDeviceInfo.strDeviceName;
@@ -872,7 +681,15 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
             m_sip.sip_message_set_content_type("application/sdp");
             m_sip.sip_call_send_initial_invite();
 
-            m_sip.sip_client_receivemsg();
+            ret = m_sip.sip_client_receivemsg();
+            if(TRUE != ret)
+            {
+                ret1 = FALSE;
+            }
+            else
+            {
+                ret1 = TRUE;
+            }
 
 //            QMessageBox::information(this, QString::fromLocal8Bit("警告!"), QStringLiteral("设备不在线！   "));
             break;
@@ -881,7 +698,6 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
         {
             IPCINFO *pstSipByeInfo = (IPCINFO*)param;
             
-
             break;
         }
         case ReceiveAlarm:
@@ -906,8 +722,276 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
         }
         default:
         {
+
         }
     }
 
-    return 1; 
+    return ret; 
+}
+
+bool VideoPlatform::isLabelHasVideo(QObject *objIn)
+{
+    return TRUE;
+}
+
+/**
+ @brief 播放视频
+ @parma[IN] QString strChlName
+ @param[IN] QObject *objIn
+ @return 
+ - 成功 TRUE
+ - 失败 FALSE
+*/
+bool VideoPlatform::startPlayVideo(QString strChlName, QObject *objIn)
+{
+    QMap<QString, SIPCOMMINFO>::iterator iter;
+    SIPCOMMINFO stRealDataInfo;
+
+    int ret = 0;
+
+    /* 判断该窗口是否已经在播放视频 */
+    if(objIn == ui.labVideo1)
+    {
+        iter = m_mapLabelManage.find("labVideo1");
+        if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
+        {
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
+        }
+        else    /* 该窗口没有播放视频，则播放视频 */
+        {
+            /* 获取需要播放视频的设备信息 */
+            for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
+            {
+                if(m_listEnabledIPCInfo.at(i).strDeviceName == strChlName)
+                {
+                    /* 保存窗口信息和设备信息 */
+                    /* test */
+                    stRealDataInfo.stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
+                    stRealDataInfo.stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
+                    stRealDataInfo.stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
+                    stRealDataInfo.stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
+                    stRealDataInfo.stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
+                    stRealDataInfo.stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
+                    stRealDataInfo.stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
+                    stRealDataInfo.stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
+                    stRealDataInfo.stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
+                    stRealDataInfo.hWndHandle = (HWND)ui.labVideo1->winId();
+                    stRealDataInfo.nWndNum = 1;
+
+                    /* 向服务器发送请求视频消息 */
+                    ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
+                    /*-------------test------------*/
+                    ret = TRUE;
+                    if(TRUE != ret)
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                    }
+                    else
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+                        startRealData(stRealDataInfo);
+                        /* 保存播放窗口信息 */
+                        m_mapLabelManage["labVideo1"] = stRealDataInfo;
+                    }
+#if 0
+                    /*---------------------------------------------------*/
+                    int ret = NETDEV_Init();
+                    if(0 == ret)
+                    {
+                        qDebug("call NETDEV_Init failed!");
+                        break;
+                    }
+                    // http://39.189.195.31:50080/
+                    NETDEV_DEVICE_INFO_S stDevInfo = {0};
+                    LPVOID lpDevHandle;
+
+                    m_lpDevHandle = NETDEV_Login("192.168.1.160", 80, "admin", "admin", &stDevInfo);
+                    if(NULL == m_lpDevHandle)
+                    {
+                        qDebug("call NETDEV_Login failed");
+                    }
+
+                    NETDEV_PREVIEWINFO_S stNetInfo = {0};
+                    //LPVOID lpPlayHandle;
+                    stNetInfo.dwChannelID = 1;
+                    stNetInfo.hPlayWnd = (LPVOID)m_mapLabelManage["labVideo1"].hWndHandle;
+                    stNetInfo.dwStreamType = NETDEV_LIVE_STREAM_INDEX_MAIN;
+                    stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
+                    m_lpPlayHandle = NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
+                    if(NULL == m_lpPlayHandle)
+                    {
+                        qDebug("call NETDEV_RealPlay failed");
+                        QMessageBox::information(this, "this", "failed to palyview.");
+                    }
+                    /*---------------------------------------------------*/
+#endif
+                }
+            }
+        }
+    }
+    else if(objIn == ui.labVideo2)
+    {
+        iter = m_mapLabelManage.find("labVideo2");
+        if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
+        {
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
+        }
+        else    /* 该窗口没有播放视频，则播放视频 */
+        {
+            /* 获取需要播放视频的设备信息 */
+            for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
+            {
+                if(m_listEnabledIPCInfo.at(i).strDeviceName == strChlName)
+                {
+                    /* 保存窗口信息和设备信息 */
+                    /* test */
+                    stRealDataInfo.stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
+                    stRealDataInfo.stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
+                    stRealDataInfo.stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
+                    stRealDataInfo.stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
+                    stRealDataInfo.stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
+                    stRealDataInfo.stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
+                    stRealDataInfo.stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
+                    stRealDataInfo.stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
+                    stRealDataInfo.stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
+                    stRealDataInfo.hWndHandle = (HWND)ui.labVideo2->winId();
+                    stRealDataInfo.nWndNum = 2;
+
+                    /* 向服务器发送请求视频消息 */
+                    ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
+                    /*-------------test------------*/
+                    ret = TRUE;
+                    if(TRUE != ret)
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                    }
+                    else
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+
+                        startRealData(stRealDataInfo);
+                        /* 保存播放窗口信息 */
+                        m_mapLabelManage["labVideo2"] = stRealDataInfo;
+                    }
+                }
+            }
+        }
+    }
+    else if(objIn == ui.labVideo3)
+    {
+        iter = m_mapLabelManage.find("labVideo3");
+        if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
+        {
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
+        }
+        else    /* 该窗口没有播放视频，则播放视频 */
+        {
+            /* 获取需要播放视频的设备信息 */
+            for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
+            {
+                if(m_listEnabledIPCInfo.at(i).strDeviceName == strChlName)
+                {
+                    /* 保存窗口信息和设备信息 */
+                    /* test */
+                    stRealDataInfo.stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
+                    stRealDataInfo.stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
+                    stRealDataInfo.stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
+                    stRealDataInfo.stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
+                    stRealDataInfo.stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
+                    stRealDataInfo.stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
+                    stRealDataInfo.stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
+                    stRealDataInfo.stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
+                    stRealDataInfo.stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
+                    stRealDataInfo.hWndHandle = (HWND)ui.labVideo3->winId();
+                    stRealDataInfo.nWndNum = 3;
+
+                    /* 向服务器发送请求视频消息 */
+                    ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
+                    if(TRUE != ret)
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                    }
+                    else
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+                        startRealData(stRealDataInfo);
+                        /* 保存播放窗口信息 */
+                        m_mapLabelManage["labVideo3"] = stRealDataInfo;
+                    }
+                }
+            }
+        }
+    }
+    else 
+    {
+        iter = m_mapLabelManage.find("labVideo4");
+        if(iter != m_mapLabelManage.end())  /* 该窗口已经有视频在播放，需要先关闭原先的视频才能继续播放 */
+        {
+            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("该窗口已经有视频在播放！"));
+        }
+        else    /* 该窗口没有播放视频，则播放视频 */
+        {
+            /* 获取需要播放视频的设备信息 */
+            for(int i = 0; i < m_listEnabledIPCInfo.count(); i++)
+            {
+                if(m_listEnabledIPCInfo.at(i).strDeviceName == strChlName)
+                {
+                    /* 保存窗口信息和设备信息 这么memcpy存在问题，需要以后定位一下*/
+                    /* test */
+                    stRealDataInfo.stDeviceInfo.enDeviceType = m_listEnabledIPCInfo.at(i).enDeviceType;
+                    stRealDataInfo.stDeviceInfo.ishasParent = m_listEnabledIPCInfo.at(i).ishasParent;
+                    stRealDataInfo.stDeviceInfo.nChlIndex  = m_listEnabledIPCInfo.at(i).nChlIndex;
+                    stRealDataInfo.stDeviceInfo.nDeviceID = m_listEnabledIPCInfo.at(i).nDeviceID;
+                    stRealDataInfo.stDeviceInfo.nDevicePort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.nParentID = m_listEnabledIPCInfo.at(i).nParentID;
+                    stRealDataInfo.stDeviceInfo.nParentPort = m_listEnabledIPCInfo.at(i).nDevicePort;
+                    stRealDataInfo.stDeviceInfo.strDeviceIP = m_listEnabledIPCInfo.at(i).strDeviceIP;
+                    stRealDataInfo.stDeviceInfo.strDeviceName = m_listEnabledIPCInfo.at(i).strDeviceName;
+                    stRealDataInfo.stDeviceInfo.strParentIP = m_listEnabledIPCInfo.at(i).strParentIP;
+                    stRealDataInfo.stDeviceInfo.strParentName = m_listEnabledIPCInfo.at(i).strParentName;
+                    stRealDataInfo.hWndHandle = (HWND)ui.labVideo4->winId();
+                    stRealDataInfo.nWndNum = 4;
+                    /* 向服务器发送请求视频消息 */
+                    ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
+                    if(TRUE != ret)
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                    }
+                    else
+                    {
+                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+                        startRealData(stRealDataInfo);
+                        /* 保存播放窗口信息 */
+                        m_mapLabelManage["labVideo4"] = stRealDataInfo;
+                    }
+                }
+            }
+        }
+    }
+    return TRUE;
+}
+
+/**
+ @brief 启动实况视频
+ @param[IN] SIPCOMMINFO stRealDataIn
+ @return 
+ - 成功 TRUE
+ - 失败 FALSE
+*/
+bool VideoPlatform::startRealData(SIPCOMMINFO &stRealDataIn)
+{
+    NETDEV_PREVIEWINFO_S stNetInfo = {0};
+    stNetInfo.dwChannelID = stRealDataIn.stDeviceInfo.nChlIndex + 1;
+    stNetInfo.hPlayWnd = (LPVOID)stRealDataIn.hWndHandle;
+    stNetInfo.dwStreamType = NETDEV_LIVE_STREAM_INDEX_MAIN;
+    stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
+    stRealDataIn.lPlayHandle = (LPVOID)NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
+
+    return TRUE;
 }

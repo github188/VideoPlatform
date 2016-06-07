@@ -11,31 +11,31 @@
 */
 CDADeviceInterface* CDADeviceFactory::getDevice(IN DEVICEINFO& stDeviceInfo)
 {
-    CDAHikDevice *member = new CDAHikDevice;
-    switch(stDeviceInfo.enDeviceType)
-    {
-        case IPC:
-        {
-
-        }
-        case NVR:
-        {
-
-        }
-        case DVR:
-        {
-
-        }
-        case PLAT:
-        {
-
-        }
-        default:
-        {
-            
-        }
-
-    }
+    CDAHikDevice *member /*= new CDAHikDevice*/;
+//     switch(stDeviceInfo.enDeviceType)
+//     {
+//         case IPC:
+//         {
+// 
+//         }
+//         case NVR:
+//         {
+// 
+//         }
+//         case DVR:
+//         {
+// 
+//         }
+//         case PLAT:
+//         {
+// 
+//         }
+//         default:
+//         {
+//             
+//         }
+// 
+//     }
 
     return member;
 }

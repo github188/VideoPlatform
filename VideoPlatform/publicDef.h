@@ -59,6 +59,7 @@ typedef struct tagSipCommInfo
 {
     int nWndNum;
     HWND hWndHandle;
+    void* lPlayHandle;
     IPCINFO stDeviceInfo;
 }SIPCOMMINFO;
 

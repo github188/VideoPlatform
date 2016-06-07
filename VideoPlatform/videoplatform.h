@@ -55,6 +55,9 @@ private:
     void InitVideo();   /* 初始化视频布局载体数据 */
     void LoadConfig();  /* 加载配置文件数据 */
     void InitSDK();     /* 初始化SDK */
+    bool isLabelHasVideo(QObject *objIn); /* 判断窗口是否已经在播放视频 */
+    bool startPlayVideo(QString strChlNameIn, QObject *objIn);  /* 播放视频 */
+    bool startRealData(SIPCOMMINFO &stRealDataIn);    /* 启动实况视频 */
 
     void removelayout();            /* 移除所有布局 */
     void change_video_1(int index); /* 改变1画面布局 */
@@ -83,9 +86,6 @@ private:
 
     /* 设备登录句柄 */
     LPVOID m_lpDevHandle;
-
-    /* 实况句柄 */
-    LPVOID m_lpPlayHandle;
 };
 
 #endif // VIDEOPLATFORM_H

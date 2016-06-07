@@ -21,9 +21,9 @@ public:
     void sip_server_run(void);
 
     /**
-     * 启动接收服务器端发送的消息
+     @brief 启动接收服务器端发送的消息
      */
-    void sip_client_receivemsg(void);
+    bool sip_client_receivemsg(void);
 
     /**
      * @param[IN] transport 传输类型

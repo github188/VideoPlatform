@@ -45,7 +45,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libzmq-v90-mt-4_0_4.lib;libzmq-v90-mt-gd-4_0_4.lib;Dnsapi.lib;Iphlpapi.lib;Ws2_32.lib;osip2.lib;osipparser2.lib;exosip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Dnsapi.lib;Iphlpapi.lib;Ws2_32.lib;osip2.lib;osipparser2.lib;exosip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -67,7 +67,6 @@
     <ClCompile Include="CDADeviceManager.cpp" />
     <ClCompile Include="CDAHikDevice.cpp" />
     <ClCompile Include="CDASip.cpp" />
-    <ClCompile Include="CZmqMsg.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="VideoServermain.cpp" />
   </ItemGroup>
@@ -77,7 +76,6 @@
     <ClInclude Include="CDADeviceManager.h" />
     <ClInclude Include="CDAHikDevice.h" />
     <ClInclude Include="CDASip.h" />
-    <ClInclude Include="CZmqMsg.h" />
     <ClInclude Include="publicDef.h" />
     <ClInclude Include="server.h" />
   </ItemGroup>
