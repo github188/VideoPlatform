@@ -68,7 +68,7 @@ void CDASip::sip_server_run()
                 dialog_id = m_sip_event_je->did;
 
                 eXosip_lock();
-                eXosip_call_send_answer(m_sip_event_je->tid, 180, NULL);
+                //eXosip_call_send_answer(m_sip_event_je->tid, 180, NULL);
                 int ret = eXosip_call_build_answer(m_sip_event_je->tid, 200, &m_sip_message_answer);
                 if (0 != ret)
                 {

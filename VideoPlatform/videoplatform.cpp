@@ -253,6 +253,21 @@ void VideoPlatform::LoadConfig()
     ui.treeMain->expandAll();
 }
 
+//////////////////////////////////////////////////////////////
+// void STDCALL AlarmCallBack_PF(IN LPVOID  dwUserID,
+//     IN INT32 dwChannelID,
+//     IN NETDEV_ALARM_INFO_S stAlarmInfo,
+//     IN LPVOID lpBuf,
+//     IN INT32  dwBufLen,
+//     IN LPVOID dwUserData
+//     )
+// {
+//     int i = 0;
+//     i = i + dwChannelID;
+//     qDebug("-----has alarms-------");
+// }
+
+
 /* 初始化第三方SDK */
 void VideoPlatform::InitSDK()
 {
@@ -269,6 +284,13 @@ void VideoPlatform::InitSDK()
     {
         qDebug("call NETDEV_Login failed");
     }
+
+//     /* 设置告警回调函数 */
+//     int ret1 = NETDEV_SetAlarmCallBack(m_lpDevHandle, AlarmCallBack_PF, this);
+//     if( TRUE != ret1)
+//     {
+//         qDebug("---set AlarmCallBack failed---");
+//     }
 
     return;
 }
@@ -791,42 +813,17 @@ bool VideoPlatform::startPlayVideo(QString strChlName, QObject *objIn)
                     else
                     {
                         QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+//                         NETDEV_PREVIEWINFO_S stNetInfo = {0};
+//                         stNetInfo.dwChannelID = 1;
+//                         stNetInfo.hPlayWnd = (LPVOID)stRealDataInfo.hWndHandle;
+//                         stNetInfo.dwStreamType = NETDEV_LIVE_STREAM_INDEX_MAIN;
+//                         stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
+//                         stRealDataInfo.lPlayHandle = (LPVOID)NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
+
                         startRealData(stRealDataInfo);
                         /* 保存播放窗口信息 */
                         m_mapLabelManage["labVideo1"] = stRealDataInfo;
                     }
-#if 0
-                    /*---------------------------------------------------*/
-                    int ret = NETDEV_Init();
-                    if(0 == ret)
-                    {
-                        qDebug("call NETDEV_Init failed!");
-                        break;
-                    }
-                    // http://39.189.195.31:50080/
-                    NETDEV_DEVICE_INFO_S stDevInfo = {0};
-                    LPVOID lpDevHandle;
-
-                    m_lpDevHandle = NETDEV_Login("192.168.1.160", 80, "admin", "admin", &stDevInfo);
-                    if(NULL == m_lpDevHandle)
-                    {
-                        qDebug("call NETDEV_Login failed");
-                    }
-
-                    NETDEV_PREVIEWINFO_S stNetInfo = {0};
-                    //LPVOID lpPlayHandle;
-                    stNetInfo.dwChannelID = 1;
-                    stNetInfo.hPlayWnd = (LPVOID)m_mapLabelManage["labVideo1"].hWndHandle;
-                    stNetInfo.dwStreamType = NETDEV_LIVE_STREAM_INDEX_MAIN;
-                    stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
-                    m_lpPlayHandle = NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
-                    if(NULL == m_lpPlayHandle)
-                    {
-                        qDebug("call NETDEV_RealPlay failed");
-                        QMessageBox::information(this, "this", "failed to palyview.");
-                    }
-                    /*---------------------------------------------------*/
-#endif
                 }
             }
         }

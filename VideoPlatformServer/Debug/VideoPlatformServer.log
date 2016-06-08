@@ -1,9 +1,21 @@
-﻿生成启动时间为 2016/6/7 13:33:43。
-     1>项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\VideoPlatformServer.vcxproj”在节点 2 上(build 个目标)。
-     1>InitializeBuildStatus:
+﻿生成启动时间为 2016/6/8 19:21:19。
+     1>项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\VideoPlatformServer.vcxproj”在节点 2 上(rebuild 个目标)。
+     1>_PrepareForClean:
+         正在删除文件“Debug\VideoPlatformServer.lastbuildstate”。
+       InitializeBuildStatus:
          正在对“Debug\VideoPlatformServer.unsuccessfulbuild”执行 Touch 任务。
        ClCompile:
-         所有输出均为最新。
+         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip" /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CDADeviceFactory.cpp CDADeviceManager.cpp CDAHikDevice.cpp CDASip.cpp server.cpp VideoServermain.cpp
+         VideoServermain.cpp
+         server.cpp
+         CDASip.cpp
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\cdasip.cpp(84): warning C4996: '_snprintf': This function or variable may be unsafe. Consider using _snprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 e:\program files (x86)\microsoft visual studio 10.0\vc\include\stdio.h(363) : 参见“_snprintf”的声明
+         CDAHikDevice.cpp
+         CDADeviceManager.cpp
+         CDADeviceFactory.cpp
+         正在生成代码...
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\cdadevicefactory.cpp(40): warning C4700: 使用了未初始化的局部变量“member”
        Link:
          e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.exe" /NOLOGO /LIBPATH:"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" Dnsapi.lib Iphlpapi.lib Ws2_32.lib osip2.lib osipparser2.lib exosip.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\VideoPlatformServer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.lib" /MACHINE:X86 Debug\CDADeviceFactory.obj
          Debug\CDADeviceManager.obj
@@ -18,8 +30,8 @@
        FinalizeBuildStatus:
          正在删除文件“Debug\VideoPlatformServer.unsuccessfulbuild”。
          正在对“Debug\VideoPlatformServer.lastbuildstate”执行 Touch 任务。
-     1>已完成生成项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\VideoPlatformServer.vcxproj”(build 个目标)的操作。
+     1>已完成生成项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\VideoPlatformServer.vcxproj”(rebuild 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.57
+已用时间 00:00:05.59
