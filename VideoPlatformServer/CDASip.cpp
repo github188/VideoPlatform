@@ -97,6 +97,9 @@ void CDASip::sip_server_run()
                     std::cout << at->a_att_field << "  " << at->a_att_value << std::endl;
                     pos++;
                 }
+
+                /* 调用CM模块接口拉取实况 */
+
                 break;
             }
             case EXOSIP_CALL_ACK:

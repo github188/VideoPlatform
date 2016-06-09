@@ -31,6 +31,15 @@
     <Filter Include="MessageCenter\Header Files">
       <UniqueIdentifier>{62139f3d-38f0-440a-9051-5c79963b4e43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="CM">
+      <UniqueIdentifier>{3d20ab8f-550c-42d2-ac7d-5d5a037aa14a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CM\源文件">
+      <UniqueIdentifier>{47b46a12-da05-4b74-8e3a-429a6eabaef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CM\头文件">
+      <UniqueIdentifier>{2cfcdd8c-e457-4641-9695-6f5b96cd7ec1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VideoServermain.cpp">
@@ -50,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="CDAHikDevice.cpp">
       <Filter>thirdpart\Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CM\Source Files\CmModule.cpp">
+      <Filter>CM\源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="CDAHikDevice.h">
       <Filter>thirdpart\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CM\Header Files\CmModule.h">
+      <Filter>CM\头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
