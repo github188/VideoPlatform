@@ -1,10 +1,11 @@
 #ifndef __CMMODULE_H__
 #define __CMMODULE_H__
+#include <iostream>
 
 typedef struct
 {
-    string strDeviceName;
-    string strDecoderTag;
+    std::string strDeviceName;
+    std::string strDecoderTag;
     int iDeviceID;
     int iChlNum;
 }REALDATAPARAM;

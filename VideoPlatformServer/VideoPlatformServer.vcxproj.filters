@@ -13,15 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="thirdpart">
-      <UniqueIdentifier>{a63bd79f-5b08-4c1e-a8a4-a7cc97f04be7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="thirdpart\Header Files">
-      <UniqueIdentifier>{b9f6d164-844c-4cb6-bb27-fd990d07c161}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="thirdpart\Resource Files">
-      <UniqueIdentifier>{659b996f-4fdc-4858-8611-247f990bddba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MessageCenter">
       <UniqueIdentifier>{32bb9385-cc2f-41c8-872b-a76d3b19835c}</UniqueIdentifier>
     </Filter>
@@ -39,6 +30,15 @@
     </Filter>
     <Filter Include="CM\头文件">
       <UniqueIdentifier>{2cfcdd8c-e457-4641-9695-6f5b96cd7ec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CM\thirdpart">
+      <UniqueIdentifier>{a63bd79f-5b08-4c1e-a8a4-a7cc97f04be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CM\thirdpart\Resource Files">
+      <UniqueIdentifier>{659b996f-4fdc-4858-8611-247f990bddba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CM\thirdpart\HIK">
+      <UniqueIdentifier>{b9f6d164-844c-4cb6-bb27-fd990d07c161}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,10 +58,13 @@
       <Filter>MessageCenter\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CDAHikDevice.cpp">
-      <Filter>thirdpart\Resource Files</Filter>
+      <Filter>CM\thirdpart\Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="CM\Source Files\CmModule.cpp">
       <Filter>CM\源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CMessageCenter.cpp">
+      <Filter>MessageCenter\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,10 +87,13 @@
       <Filter>MessageCenter\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CDAHikDevice.h">
-      <Filter>thirdpart\Header Files</Filter>
+      <Filter>CM\thirdpart\HIK</Filter>
     </ClInclude>
     <ClInclude Include="CM\Header Files\CmModule.h">
       <Filter>CM\头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CMessageCenter.h">
+      <Filter>MessageCenter\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

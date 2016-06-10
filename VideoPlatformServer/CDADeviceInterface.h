@@ -7,23 +7,23 @@ class CDADeviceInterface
 public:
     /**
      @brief 打开设备
-     @param[IN] DEVICEINFO *paramIn
+     @param[IN] void *paramIn
      @return 
      */
-    virtual void openDevice(DEVICEINFO *paramIn) = 0;
+    virtual int openDevice(void *paramIn) = 0;
 
     /**
      @brief 关闭设备
-     @param[IN] DEVICEINFO *paramIn
+     @param[IN] void *paramIn
      @return
      */
-    virtual void closeDevice(DEVICEINFO *paramIn) = 0;
+    virtual int closeDevice(void *paramIn) = 0;
 
     /**
      @brief 获取设备信息
-     @param[IN] DEVICEINFO *paramIn, void *paramOut
+     @param[IN] void *paramIn, void *paramOut
      */
-    virtual bool getDeviceInfo(DEVICEINFO *paramIn, void *paramOut) = 0;
+    virtual int getDeviceInfo(void *paramIn, void *paramOut) = 0;
 
     /**
      @brief 初始化SDK
@@ -31,7 +31,7 @@ public:
      @param[OUT]
      @return
      */
-    virtual void initSDK() = 0;
+    virtual int initSDK() = 0;
 
     /**
      @brief 反初始化SDK
@@ -39,11 +39,46 @@ public:
      @param[OUT]
      @return
      */
-    virtual void uninitSDK() = 0;
+    virtual int uninitSDK() = 0;
+
+    /**
+     @brief 获取设备名称
+     @return std::string
+     */
+    virtual std::string getDeviceName() = 0;
+
+    /**
+     @brief 获取设备IP
+     @return std::string
+     */
+    virtual std::string getDeviceIP() = 0;
+
+    /**
+     @brief 获取设备端口
+     @return int
+    */
+    virtual int getDevicePort() = 0;
+
+    /**
+     @brief 获取设备通道数
+     @return int
+    */
+    virtual int getDeviceChlNum() = 0;
+
+    /**
+     @brief 获取设备类型
+     @return ENUMDEVICETYPE
+     */
+    virtual ENUMDEVICETYPE getDeviceType() = 0;
 
 protected:
 private:
-
+    std::string strDeviceName;   //设备名称
+    std::string strDeviceIP;     //设备IP
+    int nDeviceID;          //设备ID(ID唯一)
+    int nDevicePort;        //设备端口
+    int nDeviceChlNum;      //设备通道数，IPC只有一个通道
+    ENUMDEVICETYPE enDeviceType;   //设备类型
 };
 
 class CChannelInterface

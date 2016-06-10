@@ -42,6 +42,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Header Files;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Source Files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -67,6 +68,7 @@
     <ClCompile Include="CDADeviceManager.cpp" />
     <ClCompile Include="CDAHikDevice.cpp" />
     <ClCompile Include="CDASip.cpp" />
+    <ClCompile Include="CMessageCenter.cpp" />
     <ClCompile Include="CM\Source Files\CmModule.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="VideoServermain.cpp" />
@@ -77,6 +79,7 @@
     <ClInclude Include="CDADeviceManager.h" />
     <ClInclude Include="CDAHikDevice.h" />
     <ClInclude Include="CDASip.h" />
+    <ClInclude Include="CMessageCenter.h" />
     <ClInclude Include="CM\Header Files\CmModule.h" />
     <ClInclude Include="publicDef.h" />
     <ClInclude Include="server.h" />

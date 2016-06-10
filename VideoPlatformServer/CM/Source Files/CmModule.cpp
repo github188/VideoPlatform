@@ -7,8 +7,11 @@
  - 成功 TRUE
  - 失败 ERRORCODE
 */
-int requestRealData(REALDATAPARAM *stRealDataParamIn)
+int CCmModule::requestRealData(REALDATAPARAM *stRealDataParamIn)
 {
 
-    return TRUE;
+    /* 首先判断该通道是否可以播放实况 */
+
+    /* 然后调用对应的接口播放 */
+    return true;
 }
