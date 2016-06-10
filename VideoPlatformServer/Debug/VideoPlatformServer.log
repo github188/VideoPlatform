@@ -1,21 +1,31 @@
-﻿生成启动时间为 2016/6/10 22:46:23。
+﻿生成启动时间为 2016/6/11 1:20:02。
      1>项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\VideoPlatformServer.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在对“Debug\VideoPlatformServer.unsuccessfulbuild”执行 Touch 任务。
        ClCompile:
-         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Header Files" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Source Files" /ZI /nologo /W3 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D _WINDOWS /D _DEBUG /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt CDAHikDevice.cpp
+         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Header Files" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Source Files" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\uniview" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\hik" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\dahua" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer" /ZI /nologo /W3 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D _WINDOWS /D _DEBUG /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt thirdpart\hik\CDAHikDevice.cpp thirdpart\uniview\CDAUniviewDevice.cpp
+         CDAUniviewDevice.cpp
          CDAHikDevice.cpp
-     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\cdahikdevice.cpp(92): warning C4700: 使用了未初始化的局部变量“nDevicePort”
-     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\cdahikdevice.cpp(102): warning C4700: 使用了未初始化的局部变量“nDeviceChlNum”
-     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\cdahikdevice.cpp(112): warning C4700: 使用了未初始化的局部变量“enDeviceType”
+         正在生成代码...
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\thirdpart\hik\cdahikdevice.cpp(93): warning C4700: 使用了未初始化的局部变量“nDevicePort”
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\thirdpart\hik\cdahikdevice.cpp(103): warning C4700: 使用了未初始化的局部变量“nDeviceChlNum”
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\thirdpart\hik\cdahikdevice.cpp(113): warning C4700: 使用了未初始化的局部变量“enDeviceType”
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\thirdpart\uniview\cdauniviewdevice.cpp(93): warning C4700: 使用了未初始化的局部变量“nDevicePort”
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\thirdpart\uniview\cdauniviewdevice.cpp(103): warning C4700: 使用了未初始化的局部变量“nDeviceChlNum”
+     1>c:\users\paper~news\desktop\videoplafrom_git\videoplatform\videoplatformserver\thirdpart\uniview\cdauniviewdevice.cpp(113): warning C4700: 使用了未初始化的局部变量“enDeviceType”
        Link:
          e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.exe" /NOLOGO /LIBPATH:"C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer" Dnsapi.lib Iphlpapi.lib Ws2_32.lib osip2.lib osipparser2.lib exosip.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\VideoPlatformServer.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.lib" /MACHINE:X86 Debug\CDADeviceFactory.obj
          Debug\CDADeviceManager.obj
-         Debug\CDAHikDevice.obj
          Debug\CDASip.obj
          Debug\CMessageCenter.obj
          Debug\CmModule.obj
          Debug\server.obj
+         Debug\CDADahuaChannel.obj
+         Debug\CDADahuaDevice.obj
+         Debug\CDAHikChannel.obj
+         Debug\CDAHikDevice.obj
+         Debug\CDAUnivewChannel.obj
+         Debug\CDAUniviewDevice.obj
          Debug\VideoServermain.obj
      1>LINK : warning LNK4098: 默认库“LIBCMTD”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
          VideoPlatformServer.vcxproj -> C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Debug\VideoPlatformServer.exe
@@ -28,4 +38,4 @@
 
 生成成功。
 
-已用时间 00:00:01.29
+已用时间 00:00:02.13

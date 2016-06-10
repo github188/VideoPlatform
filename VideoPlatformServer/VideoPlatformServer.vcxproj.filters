@@ -31,14 +31,20 @@
     <Filter Include="CM\头文件">
       <UniqueIdentifier>{2cfcdd8c-e457-4641-9695-6f5b96cd7ec1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CM\thirdpart">
+    <Filter Include="SM">
+      <UniqueIdentifier>{a1893541-209d-4e05-8c7f-b940b1443695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SM\thirdpart">
       <UniqueIdentifier>{a63bd79f-5b08-4c1e-a8a4-a7cc97f04be7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CM\thirdpart\Resource Files">
-      <UniqueIdentifier>{659b996f-4fdc-4858-8611-247f990bddba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CM\thirdpart\HIK">
+    <Filter Include="SM\thirdpart\HIK">
       <UniqueIdentifier>{b9f6d164-844c-4cb6-bb27-fd990d07c161}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SM\thirdpart\Uniview">
+      <UniqueIdentifier>{e1ba0dea-3364-40c5-a1ef-8b08da8af8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SM\thirdpart\Dahua">
+      <UniqueIdentifier>{71d632e9-ebbd-4eb1-924a-9618e716a38b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +63,29 @@
     <ClCompile Include="CDASip.cpp">
       <Filter>MessageCenter\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CDAHikDevice.cpp">
-      <Filter>CM\thirdpart\Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="CM\Source Files\CmModule.cpp">
       <Filter>CM\源文件</Filter>
     </ClCompile>
     <ClCompile Include="CMessageCenter.cpp">
       <Filter>MessageCenter\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdpart\dahua\CDADahuaDevice.cpp">
+      <Filter>SM\thirdpart\Dahua</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdpart\hik\CDAHikDevice.cpp">
+      <Filter>SM\thirdpart\HIK</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdpart\uniview\CDAUniviewDevice.cpp">
+      <Filter>SM\thirdpart\Uniview</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdpart\uniview\CDAUnivewChannel.cpp">
+      <Filter>SM\thirdpart\Uniview</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdpart\dahua\CDADahuaChannel.cpp">
+      <Filter>SM\thirdpart\Dahua</Filter>
+    </ClCompile>
+    <ClCompile Include="thirdpart\hik\CDAHikChannel.cpp">
+      <Filter>SM\thirdpart\HIK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +93,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CDADeviceFactory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CDADeviceInterface.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="publicDef.h">
@@ -86,14 +104,32 @@
     <ClInclude Include="CDASip.h">
       <Filter>MessageCenter\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CDAHikDevice.h">
-      <Filter>CM\thirdpart\HIK</Filter>
-    </ClInclude>
     <ClInclude Include="CM\Header Files\CmModule.h">
       <Filter>CM\头文件</Filter>
     </ClInclude>
     <ClInclude Include="CMessageCenter.h">
       <Filter>MessageCenter\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdpart\dahua\CDADahuaDevice.h">
+      <Filter>SM\thirdpart\Dahua</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdpart\hik\CDAHikDevice.h">
+      <Filter>SM\thirdpart\HIK</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdpart\uniview\CDAUniviewDevice.h">
+      <Filter>SM\thirdpart\Uniview</Filter>
+    </ClInclude>
+    <ClInclude Include="CDADeviceInterface.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdpart\uniview\CDAUniviewChannel.h">
+      <Filter>SM\thirdpart\Uniview</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdpart\dahua\CDADahuaChannel.h">
+      <Filter>SM\thirdpart\Dahua</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdpart\hik\CDAHikChannel.h">
+      <Filter>SM\thirdpart\HIK</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

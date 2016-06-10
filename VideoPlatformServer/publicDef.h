@@ -17,6 +17,14 @@ typedef enum enDeviceType
     PLAT
 }ENUMDEVICETYPE;
 
+typedef enum enDeviceFirm
+{
+    HIK = 0,
+    UNIVIEW,
+    DAHUA,
+    TianDy,
+}ENDEVICEFIRM;
+
 typedef enum enMessageType
 {
     InvitePriview = 0,
@@ -38,7 +46,8 @@ typedef struct tagDeviceInfo
     int nDevicePort;        //设备端口
     int nDeviceChlNum;      //设备通道数，IPC只有一个通道
     ENUMDEVICETYPE enDeviceType;   //设备类型
-}DEVICEINFO, *pstDeviceInfo;
+    ENDEVICEFIRM enDeviceFirm;  //设备厂商
+}DEVICEINFO, *PSTDEVICEINFO;
 
 
 typedef struct tagIpcInfo

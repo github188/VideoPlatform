@@ -2,40 +2,40 @@
 #include "publicDef.h"
 #include "CDADeviceInterface.h"
 #include "CDADeviceFactory.h"
+
+/*-------------------第三方头文件---------------------------*/
 #include "CDAHikDevice.h"
+#include "CDAUniviewDevice.h"
+#include "CDADahuaDevice.h"
 
 /**
  @brief 获取设备类对象
- @param[IN] IN DEVICEINFO& stDeviceInfoIn
+ @param[IN] IN void *paramIn
  @return 
 */
-CDADeviceInterface* CDADeviceFactory::getDevice(IN DEVICEINFO& stDeviceInfo)
+CDADeviceInterface* CDADeviceFactory::getDevice(IN void *paramIn)
 {
-    CDAHikDevice *member /*= new CDAHikDevice*/;
-//     switch(stDeviceInfo.enDeviceType)
-//     {
-//         case IPC:
-//         {
-// 
-//         }
-//         case NVR:
-//         {
-// 
-//         }
-//         case DVR:
-//         {
-// 
-//         }
-//         case PLAT:
-//         {
-// 
-//         }
-//         default:
-//         {
-//             
-//         }
-// 
-//     }
+    PSTDEVICEINFO pstDeviceInfo = (PSTDEVICEINFO)paramIn;
+    CDADeviceInterface *pDevice;
+    switch(pstDeviceInfo->enDeviceFirm)
+    {
+        case HIK:
+        {
+            pDevice = new CDAHikDevice;
+        }
+        case UNIVIEW:
+        {
+            pDevice = new CDAUnivewDevice;
+        }
+        case DAHUA:
+        {
+            pDevice = new CDADahuaDevice;
+        }
+        default:
+        {
+            pDevice = NULL;
+        }
+    }
 
-    return member;
+    return pDevice;
 }

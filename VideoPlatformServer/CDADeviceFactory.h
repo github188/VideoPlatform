@@ -16,10 +16,10 @@ public:
 
     /**
      @brief 获取设备类对象
-     @param[IN] IN DEVICEINFO& stDeviceInfoIn
+     @param[IN] IN void *paramIn
      @return 
     */
-    CDADeviceInterface* getDevice(IN DEVICEINFO& stDeviceInfo);
+    static CDADeviceInterface* getDevice(IN void *paramIn);
 
 protected:
 private:

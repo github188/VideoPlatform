@@ -4,7 +4,7 @@
 #include "publicDef.h"
 #include "CMessageCenter.h"
 #include "CDADeviceInterface.h"
-#include "CDAHikDevice.h"
+#include "CDADeviceFactory.h"
 
 /* 保存注册到服务器的设备 */
 std::map<int, CDADeviceInterface *> mapDeviceInfo;
@@ -18,6 +18,31 @@ std::map<int, CDADeviceInterface *> mapDeviceInfo;
  */
 int startRealData(void *paramIn)
 {
+    DEVICEINFO *pstDevInfo = (DEVICEINFO*)paramIn;
+    std::map<int, CDADeviceInterface*>::iterator iterDevInfo;
+    void *paramOut;
+    int ret = true;
+
+    /* 判断该设备是否存在 */
+    iterDevInfo = mapDeviceInfo.find(pstDevInfo->nDeviceID);
+    if(mapDeviceInfo.end() != iterDevInfo)
+    {
+        /* 服务器中有该设备，执行打开实况操作*/
+        ret = iterDevInfo->second->getChannelObject(paramIn)->openChl(paramIn, paramOut);
+        if(true != ret)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+    else
+    {
+        /* 不存在该设备 */
+        return false;
+    }
 
     return true;
 }
@@ -30,6 +55,31 @@ int startRealData(void *paramIn)
  */
 int closeRealData(void *paramIn)
 {
+    DEVICEINFO *pstDevInfo = (DEVICEINFO*)paramIn;
+    std::map<int, CDADeviceInterface*>::iterator iterDevInfo;
+    void *paramOut;
+    int ret = true;
+
+    /* 判断该设备是否存在 */
+    iterDevInfo = mapDeviceInfo.find(pstDevInfo->nDeviceID);
+    if(mapDeviceInfo.end() != iterDevInfo)
+    {
+        /* 服务器中有该设备，执行打开实况操作*/
+        ret = iterDevInfo->second->getChannelObject(paramIn)->openChl(paramIn, paramOut);
+        if(true != ret)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+    else
+    {
+        /* 不存在该设备 */
+        return false;
+    }
 
     return true;
 }
@@ -81,7 +131,7 @@ int closePlayBack(void *paramIn)
  */
 int openDevicefunc(void *paramIn)
 {
-    pstDeviceInfo pstDevInfo = (pstDeviceInfo)paramIn;
+    DEVICEINFO *pstDevInfo = (DEVICEINFO*)paramIn;
     std::map<int, CDADeviceInterface*>::iterator iterDevInfo;
 
     /* 判断该设备是否存在 */
@@ -94,7 +144,7 @@ int openDevicefunc(void *paramIn)
     else
     {
         /* 新建该对象存放到MAP中 */
-        CDADeviceInterface *pDevice = new CDAHikDevice;
+        CDADeviceInterface *pDevice = CDADeviceFactory::getDevice(paramIn);
         if(NULL == pDevice)
         {
             return false;
@@ -107,8 +157,6 @@ int openDevicefunc(void *paramIn)
             /* 将该对象保存到map中 */
             mapDeviceInfo[pstDevInfo->nDeviceID] = pDevice;
         }
-
-
     }
 
     return true;
@@ -123,7 +171,7 @@ int openDevicefunc(void *paramIn)
  */
 int closeDevicefunc(void *paramIn)
 {
-    pstDeviceInfo pstDevInfo = (pstDeviceInfo)paramIn;
+    DEVICEINFO *pstDevInfo = (DEVICEINFO*)paramIn;
     std::map<int, CDADeviceInterface*>::iterator iterDevInfo;
 
     /* 判断该设备是否存在 */
