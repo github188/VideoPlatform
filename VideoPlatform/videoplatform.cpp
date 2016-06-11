@@ -697,6 +697,9 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
             strSendInfo.append("a=DeviceID:");
             strSendInfo = strSendInfo + QString::number(pstSipSendInfo->stDeviceInfo.nDeviceID);
             strSendInfo.append("\r\n");
+            strSendInfo.append("a=ChannelNum:");
+            strSendInfo = strSendInfo + QString::number(pstSipSendInfo->stDeviceInfo.nChlIndex);
+            strSendInfo.append("\r\n");
 
             byteArrayTemp = strSendInfo.toLatin1();
             m_sip.sip_message_set_body(byteArrayTemp.data(), byteArrayTemp.length());

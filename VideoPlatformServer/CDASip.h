@@ -3,6 +3,7 @@
 #include <WinSock2.h>
 #include <eXosip2/eXosip.h>
 #include <iostream>
+#include "CMessageCenter.h"
 
 class CDASip
 {
@@ -74,6 +75,8 @@ private:
     char *m_pRegistar;
     char *m_pSource_call;
     char *m_pDest_call;
+
+    CMessageCenter m_messageCenter;
 };
 
 #endif

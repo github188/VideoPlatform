@@ -15,21 +15,24 @@
 */
 CDADeviceInterface* CDADeviceFactory::getDevice(IN void *paramIn)
 {
-    PSTDEVICEINFO pstDeviceInfo = (PSTDEVICEINFO)paramIn;
+    DEVICEINFO *pstDeviceInfo = (DEVICEINFO*)paramIn;
     CDADeviceInterface *pDevice;
     switch(pstDeviceInfo->enDeviceFirm)
     {
         case HIK:
         {
             pDevice = new CDAHikDevice;
+            break;
         }
         case UNIVIEW:
         {
             pDevice = new CDAUnivewDevice;
+            break;
         }
         case DAHUA:
         {
             pDevice = new CDADahuaDevice;
+            break;
         }
         default:
         {

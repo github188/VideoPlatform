@@ -11,6 +11,7 @@
  */
 bool CDAUniviewChannel::openChl(void *paramIn, void *paramOut)
 {
+
     return true;
 }
 

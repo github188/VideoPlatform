@@ -1,4 +1,5 @@
 #include "CDASip.h"
+#include "publicDef.h"
 
 CDASip::CDASip()
 {
@@ -38,6 +39,8 @@ void CDASip::sip_server_run()
     int dialog_id;
     char tmp[4096];
     int pos = 0;
+    int ret = true;
+    INVITEINFO stInviteInfo;
 
     while(1)
     {
@@ -67,38 +70,65 @@ void CDASip::sip_server_run()
                 call_id = m_sip_event_je->cid;
                 dialog_id = m_sip_event_je->did;
 
-                eXosip_lock();
-                //eXosip_call_send_answer(m_sip_event_je->tid, 180, NULL);
-                int ret = eXosip_call_build_answer(m_sip_event_je->tid, 200, &m_sip_message_answer);
-                if (0 != ret)
-                {
-                    eXosip_call_send_answer(m_sip_event_je->tid, 400, NULL);
-                }
-                else
-                {
-                    _snprintf(tmp, 4096,
-                        "v=0\r\n"
-                        "o=anonymous 0 0 IN IP4 0.0.0.0\r\n"
-                        "t=1 10\r\n"
-                        "a=username:rainfish\r\n"
-                        "a=password:123\r\n");
-                    osip_message_set_body(m_sip_message_answer, tmp, strlen(tmp));
-                    osip_message_set_content_type(m_sip_message_answer, "application/sdp");
-
-                    eXosip_call_send_answer(m_sip_event_je->tid, 200, m_sip_message_answer);
-                }
-                eXosip_unlock();
-
                 std::cout << "the Info is : " << std::endl;
                 while(!osip_list_eol(&(m_remote_sdp->a_attributes), pos))
                 {
                     sdp_attribute_t *at;
                     at = (sdp_attribute_t *)osip_list_get(&m_remote_sdp->a_attributes, pos);
                     std::cout << at->a_att_field << "  " << at->a_att_value << std::endl;
+
+                    /* 构建消息参数 */
+                    if(strcmp("DeviceName", at->a_att_field))
+                    {
+                        stInviteInfo.strDeviceName = at->a_att_value;
+                    }
+                    else if(strcmp("DeviceID", at->a_att_field))
+                    {
+                        stInviteInfo.nDeviceID = atoi(at->a_att_value);
+                    }
+                    else if(strcmp("ChannelNum", at->a_att_field))
+                    {
+                        stInviteInfo.nChannelNum = atoi(at->a_att_value);
+                    }
                     pos++;
                 }
 
-                /* 调用CM模块接口拉取实况 */
+                /* 将消息发送给消息转发中心*/
+                ret = m_messageCenter.messageCenter(&stInviteInfo,InvitePriview);
+                if(true != ret)
+                {
+                    eXosip_lock();
+                    /* 发送请求失败消息 */
+                    eXosip_call_send_answer(m_sip_event_je->tid, 400, NULL);
+                    eXosip_unlock();
+                }
+                else
+                {
+                    /* 发送请求成功消息 */
+                    eXosip_lock();
+                    eXosip_call_send_answer(m_sip_event_je->tid, 200, m_sip_message_answer);
+                    eXosip_unlock();
+                }
+//                 eXosip_lock();
+//                 int ret = eXosip_call_build_answer(m_sip_event_je->tid, 200, &m_sip_message_answer);
+//                 if (0 != ret)
+//                 {
+//                     eXosip_call_send_answer(m_sip_event_je->tid, 400, NULL);
+//                 }
+//                 else
+//                 {
+//                     _snprintf(tmp, 4096,
+//                         "v=0\r\n"
+//                         "o=anonymous 0 0 IN IP4 0.0.0.0\r\n"
+//                         "t=1 10\r\n"
+//                         "a=username:rainfish\r\n"
+//                         "a=password:123\r\n");
+//                     osip_message_set_body(m_sip_message_answer, tmp, strlen(tmp));
+//                     osip_message_set_content_type(m_sip_message_answer, "application/sdp");
+// 
+//                     eXosip_call_send_answer(m_sip_event_je->tid, 200, m_sip_message_answer);
+//                 }
+//                 eXosip_unlock();
 
                 break;
             }

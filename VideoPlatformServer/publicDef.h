@@ -73,5 +73,11 @@ typedef struct tagSipCommInfo
     IPCINFO stDeviceInfo;
 }SIPCOMMINFO;
 
+typedef struct tagInviteInfo
+{
+    std::string strDeviceName;
+    int nDeviceID;
+    int nChannelNum;
+}INVITEINFO;
 
 #endif

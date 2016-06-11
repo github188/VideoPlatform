@@ -19,6 +19,7 @@ CDAUnivewDevice::~CDAUnivewDevice()
  */
 int CDAUnivewDevice::openDevice(void *paramIn)
 {
+
     return true;
 }
 
