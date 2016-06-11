@@ -47,4 +47,37 @@ protected:
 private:
 
 };
+
+class CDAUniviewAlarm : public CAlarmInterface
+{
+public:
+    /**
+     @brief 订阅告警
+     @param[IN] void *paramIn
+     @return 
+     - 成功 true
+     - 失败 false
+     */
+    bool subscribeAlarm(void *paramIn);
+
+    /**
+     @brief 取消订阅
+     @param[IN] void *paramIn
+     @return 
+     - 成功 true
+     -失败 false
+    */
+    bool unSubscribeAlarm(void *paramIn);
+
+     /**
+     @brief 设置告警回调函数
+     @return 
+     - 成功 true
+     -失败 false
+    */
+    bool setAlarmCallBack(void);
+
+protected:
+private:
+};
 #endif

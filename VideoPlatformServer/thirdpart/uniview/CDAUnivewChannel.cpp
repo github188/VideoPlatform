@@ -51,3 +51,38 @@ bool CDAUniviewChannel::getChlInfo(void *paramIn, void *paramOut)
 {
     return true;
 }
+
+/**
+ @brief 订阅告警
+ @param[IN] void *paramIn
+ @return 
+ - 成功 true
+ - 失败 false
+*/
+bool CDAUniviewAlarm::subscribeAlarm(void *paramIn)
+{
+    return true;
+}
+
+/**
+ @brief 取消订阅
+ @param[IN] void *paramIn
+ @return 
+ - 成功 true
+ -失败 false
+ */
+bool CDAUniviewAlarm::unSubscribeAlarm(void *paramIn)
+{
+    return true;
+}
+
+/**
+ @brief 设置告警回调函数
+ @return 
+ - 成功 true
+ -失败 false
+ */
+bool CDAUniviewAlarm::setAlarmCallBack(void)
+{
+    return true;
+}

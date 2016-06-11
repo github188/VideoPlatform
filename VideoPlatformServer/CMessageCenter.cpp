@@ -65,7 +65,7 @@ int closeRealData(void *paramIn)
     if(mapDeviceInfo.end() != iterDevInfo)
     {
         /* 服务器中有该设备，执行打开实况操作*/
-        ret = iterDevInfo->second->getChannelObject(paramIn)->openChl(paramIn, paramOut);
+        ret = iterDevInfo->second->getChannelObject(paramIn)->closeChl(paramIn, paramOut);
         if(true != ret)
         {
 
