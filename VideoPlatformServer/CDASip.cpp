@@ -1,5 +1,8 @@
+#include <list>
+#include <iostream>
 #include "CDASip.h"
 #include "publicDef.h"
+using namespace std;
 
 CDASip::CDASip()
 {
@@ -61,7 +64,58 @@ void CDASip::sip_server_run()
         switch(m_sip_event_je->type)
         {
             case EXOSIP_MESSAGE_NEW: 
-                std::cout << "new message" << std::endl;break;
+            {
+                std::cout << "new message" << std::endl;
+                if(MSG_IS_MESSAGE(m_sip_event_je->request))
+                {
+                    cout << "注册到服务器的设备信息：" << endl;
+                    int i = 0;
+                    DEVICEINFO stDeviceInfo;
+                    osip_body_t *stbody;
+                    list<string> listResult;
+                    osip_message_get_body(m_sip_event_je->request, 0, &stbody);
+                    listResult = sip_string_split(stbody->body, "$");
+
+                    list<string>::iterator iter;
+                    for(iter = listResult.begin(), i = 0; iter != listResult.end(); iter++, i++)
+                    {
+                        cout << iter->data() << endl;
+                        switch(i)
+                        {
+                            case 0:stDeviceInfo.strDeviceName = iter->data();break;
+                            case 1:stDeviceInfo.strDeviceIP = iter->data();break;
+                            case 2:stDeviceInfo.nDeviceID = atoi(iter->data());break;
+                            case 3:stDeviceInfo.nDevicePort = atoi(iter->data());break;
+                            case 4:stDeviceInfo.nDeviceChlNum = atoi(iter->data());break;
+                            case 5:stDeviceInfo.strDeviceLoginName = iter->data();break;
+                            case 6:stDeviceInfo.strDeviceLoginPwd = iter->data();break;
+                            case 7:stDeviceInfo.enDeviceType = (ENUMDEVICETYPE)atoi(iter->data());break;
+                            case 8:stDeviceInfo.enDeviceFirm = (ENDEVICEFIRM)atoi(iter->data());break;
+                            default:break;
+                        }
+                    }
+
+                    /* 将消息发送给消息转发中心*/
+                    ret = m_messageCenter.messageCenter(&stDeviceInfo,OpenDevice);
+                    if(true != ret)
+                    {
+                        eXosip_lock();
+                        /* 发送请求失败消息 */
+                        eXosip_message_build_answer (m_sip_event_je->tid, 400,&m_sip_message_answer);
+                        eXosip_call_send_answer(m_sip_event_je->tid, 400, m_sip_message_answer);
+                        eXosip_unlock();
+                    }
+                    else
+                    {
+                        /* 发送请求成功消息 */
+                        eXosip_lock();
+                        eXosip_message_build_answer (m_sip_event_je->tid, 200,&m_sip_message_answer);
+                        eXosip_call_send_answer(m_sip_event_je->tid, 200, m_sip_message_answer);
+                        eXosip_unlock();
+                    }
+                }
+                break;
+            }
             case EXOSIP_CALL_INVITE: 
             {
                 std::cout << "receive invite!" << std::endl;
@@ -78,63 +132,68 @@ void CDASip::sip_server_run()
                     std::cout << at->a_att_field << "  " << at->a_att_value << std::endl;
 
                     /* 构建消息参数 */
-                    if(strcmp("DeviceName", at->a_att_field))
+                    if(!strcmp("DeviceName", at->a_att_field))
                     {
                         stInviteInfo.strDeviceName = at->a_att_value;
                     }
-                    else if(strcmp("DeviceID", at->a_att_field))
+                    else if(!strcmp("ParentID", at->a_att_field))
                     {
                         stInviteInfo.nDeviceID = atoi(at->a_att_value);
                     }
-                    else if(strcmp("ChannelNum", at->a_att_field))
+                    else if(!strcmp("ChannelNum", at->a_att_field))
                     {
                         stInviteInfo.nChannelNum = atoi(at->a_att_value);
                     }
                     pos++;
                 }
 
-                /* 将消息发送给消息转发中心*/
+                std::cout << std::endl;
+
                 ret = m_messageCenter.messageCenter(&stInviteInfo,InvitePriview);
+                eXosip_lock();
+                if(ret == true)
+                {
+                    _snprintf(tmp, 4096,
+                        "v=0\r\n"
+                        "o=anonymous 0 0 IN IP4 0.0.0.0\r\n"
+                        "t=1 10\r\n"
+                        "a=invite:rainfish\r\n"
+                        "a=result:success\r\n");
+                    cout << "play success!" << endl;
+                }
+                else
+                {
+                    _snprintf(tmp, 4096,
+                    "v=0\r\n"
+                        "o=anonymous 0 0 IN IP4 0.0.0.0\r\n"
+                        "t=1 10\r\n"
+                        "a=invite:rainfish\r\n"
+                        "a=result:failed\r\n");
+                    cout << "paly success!" << endl;
+                }
+                ret = true;
                 if(true != ret)
                 {
-                    eXosip_lock();
                     /* 发送请求失败消息 */
-                    eXosip_call_send_answer(m_sip_event_je->tid, 400, NULL);
+                    eXosip_call_send_answer(m_sip_event_je->tid, 400, m_sip_message_answer);
                     eXosip_unlock();
                 }
                 else
                 {
                     /* 发送请求成功消息 */
-                    eXosip_lock();
+                    eXosip_call_build_answer (m_sip_event_je->tid, 200,&m_sip_message_answer);
+
+                    osip_message_set_body(m_sip_message_answer, tmp, strlen(tmp));
+                    osip_message_set_content_type(m_sip_message_answer, "application/sdp");
+
                     eXosip_call_send_answer(m_sip_event_je->tid, 200, m_sip_message_answer);
                     eXosip_unlock();
                 }
-//                 eXosip_lock();
-//                 int ret = eXosip_call_build_answer(m_sip_event_je->tid, 200, &m_sip_message_answer);
-//                 if (0 != ret)
-//                 {
-//                     eXosip_call_send_answer(m_sip_event_je->tid, 400, NULL);
-//                 }
-//                 else
-//                 {
-//                     _snprintf(tmp, 4096,
-//                         "v=0\r\n"
-//                         "o=anonymous 0 0 IN IP4 0.0.0.0\r\n"
-//                         "t=1 10\r\n"
-//                         "a=username:rainfish\r\n"
-//                         "a=password:123\r\n");
-//                     osip_message_set_body(m_sip_message_answer, tmp, strlen(tmp));
-//                     osip_message_set_content_type(m_sip_message_answer, "application/sdp");
-// 
-//                     eXosip_call_send_answer(m_sip_event_je->tid, 200, m_sip_message_answer);
-//                 }
-//                 eXosip_unlock();
-
                 break;
             }
             case EXOSIP_CALL_ACK:
             {
-                std::cout << "receive ack" << std::endl;
+                //std::cout << "receive ack" << std::endl;
             }
             case EXOSIP_CALL_CLOSED: break;
                 std::cout << "call_closed" << std::endl;break;
@@ -256,4 +315,28 @@ int CDASip::sip_call_send_initial_invite ()
     eXosip_unlock();
 
     return 1;
+}
+
+/**
+ @brief 实现类似于split的函数功能
+ */
+list<string> CDASip::sip_string_split(string str, string separator)
+{
+    list<string> result;
+    int cutAt;
+    while((cutAt = str.find_first_of(separator)) != str.npos)
+    {
+        /* 有可能存在string str = "a,b,c",求split(str, ",")的情况，所以每次要判断cutAt是否为零*/
+        if(cutAt > 0)
+        {
+            result.push_back(str.substr(0, cutAt));
+        }
+        str = str.substr(cutAt + 1);
+    }
+    if(str.length() > 0)
+    {
+        result.push_back(str);
+    }
+
+    return result;
 }

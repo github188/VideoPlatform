@@ -121,20 +121,21 @@ ENUMDEVICETYPE CDAHikDevice::getDeviceType()
 CChannelInterface* CDAHikDevice::getChannelObject(void *paramIn)
 {
     std::map<int, CChannelInterface*>::iterator iterChannel;
-    DEVICEINFO *pstDeviceInfo = (DEVICEINFO*)paramIn;
+    INVITEINFO *pstDeviceInfo = (INVITEINFO*)paramIn;
     CChannelInterface *pChannel;
 
     /* 判断该通道是否已经在播放实况 */
-    iterChannel = m_mapChannelManage.find(pstDeviceInfo->nDeviceChlNum);
+    iterChannel = m_mapChannelManage.find(pstDeviceInfo->nChannelNum);
     if(m_mapChannelManage.end() != iterChannel)
     {
         /* 该通道已经有实况播放 */
+        pChannel = iterChannel->second;
     }
     else
     {
         pChannel = new CDAHikChannel;
         /* 将该通道保存到map中 */
-        m_mapChannelManage[pstDeviceInfo->nDeviceChlNum] = pChannel;
+        m_mapChannelManage[pstDeviceInfo->nChannelNum] = pChannel;
     }
     return pChannel;
 }

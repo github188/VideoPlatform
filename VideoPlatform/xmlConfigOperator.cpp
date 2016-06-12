@@ -49,6 +49,9 @@ void CXmlConfigOperator::readxml(QString filename, QList<DEVICEINFO> &listConfig
     QDomNodeList nodelist = root.elementsByTagName("Device");
     for(int i = 0; i < nodelist.count(); i++)
     {
+        /* Ìí¼ÓÉè±¸ID */
+        stDeviceInfo.nDeviceID = i + 1;
+
         QDomNode node = nodelist.at(i);
         QDomNodeList itemlist = node.childNodes();
         for(int j = 0; j < itemlist.count(); j++)
@@ -83,6 +86,39 @@ void CXmlConfigOperator::readxml(QString filename, QList<DEVICEINFO> &listConfig
                 QString result2 = mynode.toElement().attribute("value");
                 //qDebug("DeviceType = %s,", qPrintable(result2));
                 stDeviceInfo.enDeviceType = (ENUMDEVICETYPE)result2.toInt();
+            }
+            else if(mynode.toElement().attribute("key") == "DeviceLoginName")
+            {
+                QString result2 = mynode.toElement().attribute("value");
+                qDebug("DeviceLoginName = %s,", qPrintable(result2));
+                stDeviceInfo.strDeviceLoginName = result2;
+            }
+            else if(mynode.toElement().attribute("key") == "DeviceLoginPwd")
+            {
+                QString result2 = mynode.toElement().attribute("value");
+                qDebug("DeviceLoginPwd = %s,", qPrintable(result2));
+                stDeviceInfo.strDeviceLoginPwd = result2;
+            }
+            else
+            {
+                QString result2 = mynode.toElement().attribute("value");
+                qDebug("DeviceFirm = %s,", qPrintable(result2));
+                if(!result2.compare("HIK"))
+                {
+                    stDeviceInfo.enDeviceFirm = ENDEVICEFIRM::HIK;
+                }
+                else if(!result2.compare("DAHUA"))
+                {
+                    stDeviceInfo.enDeviceFirm = ENDEVICEFIRM::DAHUA;
+                }
+                else if(!result2.compare("TianDy"))
+                {
+                    stDeviceInfo.enDeviceFirm = ENDEVICEFIRM::TianDy;
+                }
+                else if(!result2.compare("UNIVIEW"))
+                {
+                    stDeviceInfo.enDeviceFirm = ENDEVICEFIRM::UNIVIEW;
+                }
             }
         }
         listConfigInfo.append(stDeviceInfo);

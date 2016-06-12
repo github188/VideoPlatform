@@ -9,7 +9,7 @@
  - 成功 true
  - 失败 false
  */
-bool CDAHikChannel::openChl(void *paramIn, void *paramOut)
+bool CDAHikChannel::openChl(void *paramIn/*, void *paramLoginHandle*/)
 {
     return true;
 }
@@ -22,7 +22,7 @@ bool CDAHikChannel::openChl(void *paramIn, void *paramOut)
  - 成功 true
  - 失败 false
  */
-bool CDAHikChannel::closeChl(void *paramIn, void *paramOut)
+bool CDAHikChannel::closeChl(void *paramIn/*, void *paramOut*/)
 {
     return true;
 }

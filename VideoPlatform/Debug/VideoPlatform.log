@@ -1,15 +1,51 @@
-﻿生成启动时间为 2016/6/8 19:19:07。
+﻿生成启动时间为 2016/6/12 11:11:52。
      1>项目“C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatform\VideoPlatform.vcxproj”在节点 2 上(build 个目标)。
      1>InitializeBuildStatus:
          正在创建“Debug\VideoPlatform.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
        CustomBuild:
          所有输出均为最新。
        ClCompile:
-         所有输出均为最新。
+         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /IE:\Qt\Qt5.5.1\5.5\msvc2010\include /I.\GeneratedFiles\Debug /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtCore /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtGui /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtLocation /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtMultimedia /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtMultimediaWidgets /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtNetwork /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtQml /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtQuick /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtSql /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtScript /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtWidgets /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtXml /IE:\Qt\Qt5.5.1\5.5\msvc2010\include\QtXmlPatterns /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatform\include\include-libexosip" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatform" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatform\uniview\include" /I"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatform\include\include-libosip" /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_LOCATION_LIB /D QT_MULTIMEDIA_LIB /D QT_MULTIMEDIAWIDGETS_LIB /D QT_NETWORK_LIB /D QT_QML_LIB /D QT_QUICK_LIB /D QT_SQL_LIB /D QT_SCRIPT_LIB /D QT_WIDGETS_LIB /D QT_XML_LIB /D QT_XMLPATTERNS_LIB /D _WINDOWS /D _DEBUG /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt videoplatform.cpp
+         videoplatform.cpp
+     1>videoplatform.cpp(159): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enDeviceType”
+     1>videoplatform.cpp(189): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enDeviceType”
+     1>videoplatform.cpp(234): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(287): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(317): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(345): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(373): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(815): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(875): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(936): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
+     1>videoplatform.cpp(994): warning C4482: 使用了非标准扩展: 限定名中使用了枚举“enMessageType”
          所有输出均为最新。
        Link:
-         所有输出均为最新。
+         e:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Win32\Debug\\VideoPlatform.exe" /NOLOGO /LIBPATH:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatform\uniview\lib" /LIBPATH:E:\Qt\Qt5.5.1\5.5\msvc2010\lib /LIBPATH:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatform\lib" qtmaind.lib Qt5Cored.lib Qt5Guid.lib Qt5Locationd.lib Qt5Multimediad.lib Qt5MultimediaWidgetsd.lib Qt5Networkd.lib Qt5Qmld.lib Qt5Quickd.lib Qt5Sqld.lib Qt5Scriptd.lib Qt5Widgetsd.lib Qt5Xmld.lib Qt5XmlPatternsd.lib Dnsapi.lib Iphlpapi.lib Ws2_32.lib osip2.lib osipparser2.lib exosip.lib NetDEVSDK.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\VideoPlatform.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Win32\Debug\VideoPlatform.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Win32\Debug\VideoPlatform.lib" /MACHINE:X86 Debug\alarm.obj
+         Debug\CDASip.obj
+         Debug\frmconfig.obj
+         Debug\moc_alarm.obj
+         Debug\moc_frmconfig.obj
+         Debug\moc_sipthread.obj
+         Debug\moc_switchbutton.obj
+         Debug\moc_userTreeWidget.obj
+         Debug\moc_videoplatform.obj
+         Debug\moc_xmlConfigOperator.obj
+         Debug\moc_xmloperator.obj
+         Debug\qrc_videoplatform.obj
+         Debug\iconhelper.obj
+         Debug\main.obj
+         Debug\myapp.obj
+         Debug\sipthread.obj
+         Debug\switchbutton.obj
+         Debug\userTreeWidget.obj
+         Debug\videoplatform.obj
+         Debug\xmlConfigOperator.obj
+         Debug\xmloperator.obj
+         LINK : 没有找到 C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Win32\Debug\\VideoPlatform.exe 或上一个增量链接没有生成它；正在执行完全链接
+     1>LINK : warning LNK4098: 默认库“LIBCMTD”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
          VideoPlatform.vcxproj -> C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Win32\Debug\VideoPlatform.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\Win32\Debug\\VideoPlatform.exe;#1" /manifest Debug\VideoPlatform.exe.intermediate.manifest
        FinalizeBuildStatus:
          正在删除文件“Debug\VideoPlatform.unsuccessfulbuild”。
          正在对“Debug\VideoPlatform.lastbuildstate”执行 Touch 任务。
@@ -17,4 +53,4 @@
 
 生成成功。
 
-已用时间 00:00:00.21
+已用时间 00:00:04.18

@@ -14,7 +14,7 @@ public:
       - 成功 true
       - 失败 false
      */
-    virtual bool openChl(void *paramIn, void *paramOut) = 0;
+    virtual bool openChl(void *paramIn/*, void *paramLoginHandle*/) = 0;
 
     /**
      @brief 关闭通道
@@ -24,7 +24,7 @@ public:
       - 成功 true
       - 失败 false
      */
-    virtual bool closeChl(void *paramIn, void *paramOut) = 0;
+    virtual bool closeChl(void *paramIn/*, void *paramOut*/) = 0;
 
     /**
      @brief 设置通道

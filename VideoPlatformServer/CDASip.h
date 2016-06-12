@@ -3,7 +3,9 @@
 #include <WinSock2.h>
 #include <eXosip2/eXosip.h>
 #include <iostream>
+#include <list>
 #include "CMessageCenter.h"
+using namespace std;
 
 class CDASip
 {
@@ -62,6 +64,11 @@ public:
       * 停止监听
       */
     void sip_quit(void);
+
+    /**
+     @brief 实现类似于split的函数功能
+     */
+    list<string> sip_string_split(string str, string separator);
 
 protected:
 private:

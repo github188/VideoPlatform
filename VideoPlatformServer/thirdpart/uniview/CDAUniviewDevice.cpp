@@ -1,6 +1,8 @@
 #include "CDADeviceInterface.h"
 #include "CDAUniviewDevice.h"
 #include "CDAUniviewChannel.h"
+#include <sstream>
+#include "NetDEVSDK.h"
 
 CDAUnivewDevice::CDAUnivewDevice()
 {
@@ -19,8 +21,43 @@ CDAUnivewDevice::~CDAUnivewDevice()
  */
 int CDAUnivewDevice::openDevice(void *paramIn)
 {
+    static int i11 = 0;
+    int ret = true;
+    DEVICEINFO *pstDeviceInfo = (DEVICEINFO*)paramIn;
+    NETDEV_DEVICE_INFO_S stDevInfo = {0};
+    std::stringstream strTemp;
+    char szTempIP[20];
+    char szTempLoginName[20];
+    char szTempLoginPwd[20];
 
-    return true;
+    if(i11 == 0)
+    {
+        /* 初始化SDK */
+        ret = initSDK();
+        i11++;
+    }
+    strTemp << pstDeviceInfo->strDeviceIP;
+    strTemp >> szTempIP;
+
+    strTemp.clear();
+    strTemp.str("");
+    strTemp << pstDeviceInfo->strDeviceLoginName;
+    strTemp >> szTempLoginName;
+
+    strTemp.clear();
+    strTemp.str("");
+    strTemp << pstDeviceInfo->strDeviceLoginPwd;
+    strTemp >> szTempLoginPwd;
+
+    /* 调用第三方接口进行登录操作 */
+    m_lpDevHandle = NETDEV_Login(szTempIP, pstDeviceInfo->nDevicePort, szTempLoginName, szTempLoginPwd, &stDevInfo);
+    if(NULL == m_lpDevHandle)
+    {
+        /* 登录失败 */
+        return FALSE;
+    }
+
+    return TRUE;
 }
 
 /**
@@ -30,7 +67,15 @@ int CDAUnivewDevice::openDevice(void *paramIn)
  */
 int CDAUnivewDevice::closeDevice(void *paramIn)
 {
-    return true;
+    int ret = TRUE;
+
+    ret = NETDEV_Logout(m_lpDevHandle);
+    if(TRUE != ret)
+    {
+        return FALSE;
+    }
+
+    return TRUE;
 }
 
 /**
@@ -41,6 +86,15 @@ int CDAUnivewDevice::closeDevice(void *paramIn)
  */
 int CDAUnivewDevice::initSDK()
 {
+    int ret = TRUE;
+
+    /* 调用第三方接口初始化SDK */
+    ret = NETDEV_Init();
+    if(TRUE != ret)
+    {
+        return FALSE;
+    }
+
     return true;
 }
 
@@ -52,7 +106,15 @@ int CDAUnivewDevice::initSDK()
  */
 int CDAUnivewDevice::uninitSDK()
 {
-    return true;
+    int ret = TRUE;
+
+    ret = NETDEV_Cleanup();
+    if(TRUE != ret)
+    {
+        return FALSE;
+    }
+
+    return TRUE;
 }
 
 /**
@@ -122,20 +184,22 @@ ENUMDEVICETYPE CDAUnivewDevice::getDeviceType()
 CChannelInterface* CDAUnivewDevice::getChannelObject(void *paramIn)
 {
     std::map<int, CChannelInterface*>::iterator iterChannel;
-    DEVICEINFO *pstDeviceInfo = (DEVICEINFO*)paramIn;
-    CChannelInterface *pChannel;
+    INVITEINFO *pstDeviceInfo = (INVITEINFO*)paramIn;
+    CChannelInterface *pChannel = NULL;
 
     /* 判断该通道是否已经在播放实况 */
-    iterChannel = m_mapChannelManage.find(pstDeviceInfo->nDeviceChlNum);
+    iterChannel = m_mapChannelManage.find(pstDeviceInfo->nChannelNum);
     if(m_mapChannelManage.end() != iterChannel)
     {
         /* 该通道已经有实况播放 */
+        pChannel = iterChannel->second;
     }
     else
     {
         pChannel = new CDAUniviewChannel;
+        ((CDAUniviewChannel*)pChannel)->m_lDevHandle = m_lpDevHandle;
         /* 将该通道保存到map中 */
-        m_mapChannelManage[pstDeviceInfo->nDeviceChlNum] = pChannel;
+        m_mapChannelManage[pstDeviceInfo->nChannelNum] = pChannel;
     }
     return pChannel;
 }

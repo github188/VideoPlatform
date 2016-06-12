@@ -12,7 +12,7 @@ public:
       - 成功 true
       - 失败 false
      */
-    bool openChl(void *paramIn, void *paramOut);
+    bool openChl(void *paramIn/*, void *paramLoginHandle*/);
 
     /**
      @brief 关闭通道
@@ -22,7 +22,7 @@ public:
       - 成功 true
       - 失败 false
      */
-    bool closeChl(void *paramIn, void *paramOut);
+    bool closeChl(void *paramIn/*, void *paramOut*/);
 
     /**
      @brief 设置通道

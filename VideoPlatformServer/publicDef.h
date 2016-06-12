@@ -45,6 +45,8 @@ typedef struct tagDeviceInfo
     int nDeviceID;          //设备ID(ID唯一)
     int nDevicePort;        //设备端口
     int nDeviceChlNum;      //设备通道数，IPC只有一个通道
+    std::string strDeviceLoginName; //设备登录用户名
+    std::string strDeviceLoginPwd;        //设备登录密码
     ENUMDEVICETYPE enDeviceType;   //设备类型
     ENDEVICEFIRM enDeviceFirm;  //设备厂商
 }DEVICEINFO, *PSTDEVICEINFO;

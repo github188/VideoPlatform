@@ -9,7 +9,7 @@
  - 成功 true
  - 失败 false
  */
-bool CDADahuaChannel::openChl(void *paramIn, void *paramOut)
+bool CDADahuaChannel::openChl(void *paramIn/*, void *paramLoginHandle*/)
 {
     return true;
 }
@@ -22,7 +22,7 @@ bool CDADahuaChannel::openChl(void *paramIn, void *paramOut)
  - 成功 true
  - 失败 false
  */
-bool CDADahuaChannel::closeChl(void *paramIn, void *paramOut)
+bool CDADahuaChannel::closeChl(void *paramIn/*, void *paramOut*/)
 {
     return true;
 }

@@ -1,5 +1,6 @@
 #ifndef __CDAUNIVIEWDEVICE_H__
 #define __CDAUNIVIEWDEVICE_H__
+#include "publicDef.h"
 
 class CDAUnivewDevice : public CDADeviceInterface
 {
@@ -89,6 +90,8 @@ public:
 
 protected:
 private:
+    /* Éè±¸µÇÂ¼¾ä±ú */
+    void *m_lpDevHandle;
 };
 
 #endif

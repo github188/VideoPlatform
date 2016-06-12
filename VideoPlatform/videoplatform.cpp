@@ -39,52 +39,9 @@ VideoPlatform::VideoPlatform(QWidget *parent)
     m_sipthread.start();
     m_sip.sip_init();
     m_sip.sip_listen_addr(IPPROTO_UDP, NULL, 15060, AF_INET, 0);
+    /* 注册设备 */
+    registerDevice();
 
-#if 0
-    /*---------------------------------------------------*/
-    int ret = NETDEV_Init();
-    if(0 == ret)
-    {
-        qDebug("call NETDEV_Init failed!");
-        //         break;
-    }
-    // http://39.189.195.31:50080/
-    NETDEV_DEVICE_INFO_S stDevInfo = {0};
-    LPVOID lpDevHandle;
-
-    m_lpDevHandle = NETDEV_Login("192.168.1.160", 80, "admin", "admin", &stDevInfo);
-    if(NULL == m_lpDevHandle)
-    {
-        qDebug("call NETDEV_Login failed");
-    }
-
-    NETDEV_PREVIEWINFO_S stNetInfo = {0};
-    //LPVOID lpPlayHandle;
-    stNetInfo.dwChannelID = 1;
-    ui.labVideo1->windowHandle()->winId();
-    WId pWndHanle = ui.labVideo1->windowHandle()->winId();
-    if(pWndHanle == NULL)
-    {
-        QMessageBox::information(this, "this", "pWndHandle == NULL");
-        return ;
-    }
-
-    stNetInfo.hPlayWnd = (LPVOID)ui.labVideo1->windowHandle()->winId();
-    if(stNetInfo.hPlayWnd == NULL)
-    {
-        QMessageBox::information(this, "this", "hPlayWnd == NULL.");
-        return ;
-    }
-    stNetInfo.dwStreamType = NETDEV_LIVE_STREAM_INDEX_MAIN;
-    stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
-    m_lpPlayHandle = NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
-    if(NULL == m_lpPlayHandle)
-    {
-        qDebug("call NETDEV_RealPlay failed");
-        QMessageBox::information(this, "this", "failed to palyview.");
-    }
-#endif
-    /*---------------------------------------------------*/
 }
 
 VideoPlatform::~VideoPlatform()
@@ -201,12 +158,12 @@ void VideoPlatform::LoadConfig()
                     /* 将可以拖放播放视频的节点信息保存起来 */
                     stIpcInfo.enDeviceType = ENUMDEVICETYPE::IPC;
                     stIpcInfo.ishasParent = false;
-                    stIpcInfo.nDeviceID = 0;
+                    stIpcInfo.nDeviceID = nDeviceID;
                     stIpcInfo.nDevicePort = nDevicePort;
-                    stIpcInfo.nParentID = 0;
-                    stIpcInfo.nParentPort = 0;
                     stIpcInfo.strDeviceIP = strDeviceIP;
                     stIpcInfo.strDeviceName = strDeviceName;
+                    stIpcInfo.nParentID = 0;
+                    stIpcInfo.nParentPort = 0;
                     stIpcInfo.strParentIP = "";
                     stIpcInfo.strParentName = "";
                     stIpcInfo.nChlIndex = 0;
@@ -233,7 +190,7 @@ void VideoPlatform::LoadConfig()
                         stIpcInfo.ishasParent = true;
                         stIpcInfo.nDeviceID = 0;
                         stIpcInfo.nDevicePort = 0;
-                        stIpcInfo.nParentID = 0;
+                        stIpcInfo.nParentID = nDeviceID;
                         stIpcInfo.nParentPort = nDevicePort;
                         stIpcInfo.strDeviceIP = "";
                         stIpcInfo.strDeviceName = strDeviceName + "_" + QString::number(j);
@@ -253,20 +210,40 @@ void VideoPlatform::LoadConfig()
     ui.treeMain->expandAll();
 }
 
-//////////////////////////////////////////////////////////////
-// void STDCALL AlarmCallBack_PF(IN LPVOID  dwUserID,
-//     IN INT32 dwChannelID,
-//     IN NETDEV_ALARM_INFO_S stAlarmInfo,
-//     IN LPVOID lpBuf,
-//     IN INT32  dwBufLen,
-//     IN LPVOID dwUserData
-//     )
-// {
-//     int i = 0;
-//     i = i + dwChannelID;
-//     qDebug("-----has alarms-------");
-// }
+/* 注册设备到服务器 */
+bool VideoPlatform::registerDevice()
+{
+    DEVICEINFO stDeviceInfo;
+    int ret = true;
+    QByteArray byteArrayTemp;
+    QByteArray byteLoginNameTemp;
+    QByteArray bytePwdTemp;
 
+    for(int i = 0; i < m_listConfigInfo.size(); i++)
+    {
+        stDeviceInfo.strDeviceName = m_listConfigInfo[i].strDeviceName;
+        stDeviceInfo.strDeviceIP   = m_listConfigInfo[i].strDeviceIP;
+        stDeviceInfo.nDeviceID     = m_listConfigInfo[i].nDeviceID;
+        stDeviceInfo.nDevicePort   = m_listConfigInfo[i].nDevicePort;
+        stDeviceInfo.nDeviceChlNum = m_listConfigInfo[i].nDeviceChlNum;
+        stDeviceInfo.enDeviceType  = m_listConfigInfo[i].enDeviceType;
+        stDeviceInfo.strDeviceLoginName = m_listConfigInfo[i].strDeviceLoginName;
+        stDeviceInfo.strDeviceLoginPwd = m_listConfigInfo[i].strDeviceLoginPwd;
+        stDeviceInfo.enDeviceFirm = m_listConfigInfo[i].enDeviceFirm;
+
+        this->sendSipMessageToServer(SIPMSGTYPE::OpenDevice, &stDeviceInfo);
+        if(stDeviceInfo.enDeviceFirm == UNIVIEW)
+        {
+            NETDEV_DEVICE_INFO_S stDevInfo = {0};
+            byteArrayTemp = stDeviceInfo.strDeviceIP.toLatin1();
+            byteLoginNameTemp = stDeviceInfo.strDeviceLoginName.toLatin1();
+            bytePwdTemp = stDeviceInfo.strDeviceLoginPwd.toLatin1();
+            m_lpDevHandle = NETDEV_Login(byteArrayTemp.data(), stDeviceInfo.nDevicePort, byteLoginNameTemp.data(), bytePwdTemp.data(), &stDevInfo);
+        }
+    }
+
+    return true;
+}
 
 /* 初始化第三方SDK */
 void VideoPlatform::InitSDK()
@@ -276,14 +253,14 @@ void VideoPlatform::InitSDK()
     {
         qDebug("call NETDEV_Init failed!");
     }
-    NETDEV_DEVICE_INFO_S stDevInfo = {0};
-    LPVOID lpDevHandle;
+//     NETDEV_DEVICE_INFO_S stDevInfo = {0};
+//     LPVOID lpDevHandle;
 
-    m_lpDevHandle = NETDEV_Login("192.168.1.160", 80, "admin", "admin", &stDevInfo);
-    if(NULL == m_lpDevHandle)
-    {
-        qDebug("call NETDEV_Login failed");
-    }
+//     m_lpDevHandle = NETDEV_Login("192.168.1.160", 80, "admin", "admin", &stDevInfo);
+//     if(NULL == m_lpDevHandle)
+//     {
+//         qDebug("call NETDEV_Login failed");
+//     }
 
 //     /* 设置告警回调函数 */
 //     int ret1 = NETDEV_SetAlarmCallBack(m_lpDevHandle, AlarmCallBack_PF, this);
@@ -694,8 +671,8 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
             strSendInfo.append("a=DeviceName:");
             strSendInfo = strSendInfo + pstSipSendInfo->stDeviceInfo.strDeviceName;
             strSendInfo.append("\r\n");
-            strSendInfo.append("a=DeviceID:");
-            strSendInfo = strSendInfo + QString::number(pstSipSendInfo->stDeviceInfo.nDeviceID);
+            strSendInfo.append("a=ParentID:");
+            strSendInfo = strSendInfo + QString::number(pstSipSendInfo->stDeviceInfo.nParentID);
             strSendInfo.append("\r\n");
             strSendInfo.append("a=ChannelNum:");
             strSendInfo = strSendInfo + QString::number(pstSipSendInfo->stDeviceInfo.nChlIndex);
@@ -739,6 +716,35 @@ int VideoPlatform::sendSipMessageToServer(SIPMSGTYPE enMsgType, void *param)
         }
         case OpenDevice:
         {
+            DEVICEINFO *pstSipSendInfo = (DEVICEINFO *)param;
+            //传输MESSAGE方法，也就是即时消息，和INFO方法相比，我认为主要区别是：
+            //MESSAGE不用建立连接，直接传输信息，而INFO消息必须在建立INVITE的基础上传输
+            m_sip.sip_message_build_request();
+
+            strSendInfo = strSendInfo + pstSipSendInfo->strDeviceName;
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo + pstSipSendInfo->strDeviceIP;
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo + QString::number(pstSipSendInfo->nDeviceID);
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo + QString::number(pstSipSendInfo->nDevicePort);
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo +  QString::number(pstSipSendInfo->nDeviceChlNum);
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo + pstSipSendInfo->strDeviceLoginName;
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo + pstSipSendInfo->strDeviceLoginPwd;
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo + QString::number(pstSipSendInfo->enDeviceType);
+            strSendInfo.append("$");
+            strSendInfo = strSendInfo + QString::number(pstSipSendInfo->enDeviceFirm);
+//            strSendInfo.append("$");
+
+            byteArrayTemp = strSendInfo.toLatin1();
+            m_sip.sip_message_set_body1(byteArrayTemp.data(), byteArrayTemp.length());
+            //格式是xml
+            m_sip.sip_message_set_content_type1("text/xml");
+            m_sip.sip_message_send_request();
             break;
         }
         case CloseDevice:
@@ -808,24 +814,28 @@ bool VideoPlatform::startPlayVideo(QString strChlName, QObject *objIn)
                     /* 向服务器发送请求视频消息 */
                     ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
                     /*-------------test------------*/
-                    ret = TRUE;
-                    if(TRUE != ret)
+                    //ret = TRUE;
+                    if((TRUE != ret) || (m_lpDevHandle == NULL))
                     {
                         QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
                     }
                     else
                     {
-                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
-//                         NETDEV_PREVIEWINFO_S stNetInfo = {0};
-//                         stNetInfo.dwChannelID = 1;
-//                         stNetInfo.hPlayWnd = (LPVOID)stRealDataInfo.hWndHandle;
-//                         stNetInfo.dwStreamType = NETDEV_LIVE_STREAM_INDEX_MAIN;
-//                         stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
-//                         stRealDataInfo.lPlayHandle = (LPVOID)NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
+                        //QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+//                         startRealData(stRealDataInfo);
+//                         /* 保存播放窗口信息 */
+//                         m_mapLabelManage["labVideo1"] = stRealDataInfo;
 
-                        startRealData(stRealDataInfo);
-                        /* 保存播放窗口信息 */
-                        m_mapLabelManage["labVideo1"] = stRealDataInfo;
+                        int ret1 = startRealData(stRealDataInfo);
+                        if(ret1 != 1)
+                        {
+                            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                        }
+                        else
+                        {
+                            /* 保存播放窗口信息 */
+                            m_mapLabelManage["labVideo1"] = stRealDataInfo;
+                        }
                     }
                 }
             }
@@ -864,18 +874,29 @@ bool VideoPlatform::startPlayVideo(QString strChlName, QObject *objIn)
                     /* 向服务器发送请求视频消息 */
                     ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
                     /*-------------test------------*/
-                    ret = TRUE;
-                    if(TRUE != ret)
+                    //ret = TRUE;
+                    if(TRUE != ret || (m_lpDevHandle == NULL))
                     {
                         QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
                     }
                     else
                     {
-                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+                        //QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
 
-                        startRealData(stRealDataInfo);
-                        /* 保存播放窗口信息 */
-                        m_mapLabelManage["labVideo2"] = stRealDataInfo;
+//                         startRealData(stRealDataInfo);
+//                         /* 保存播放窗口信息 */
+//                         m_mapLabelManage["labVideo2"] = stRealDataInfo;
+
+                        int ret1 = startRealData(stRealDataInfo);
+                        if(ret1 != 1)
+                        {
+                            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                        }
+                        else
+                        {
+                            /* 保存播放窗口信息 */
+                            m_mapLabelManage["labVideo2"] = stRealDataInfo;
+                        }
                     }
                 }
             }
@@ -913,16 +934,28 @@ bool VideoPlatform::startPlayVideo(QString strChlName, QObject *objIn)
 
                     /* 向服务器发送请求视频消息 */
                     ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
-                    if(TRUE != ret)
+                    //ret = TRUE;
+                    if(TRUE != ret || (m_lpDevHandle == NULL))
                     {
                         QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
                     }
                     else
                     {
-                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
-                        startRealData(stRealDataInfo);
-                        /* 保存播放窗口信息 */
-                        m_mapLabelManage["labVideo3"] = stRealDataInfo;
+                        //QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+//                         startRealData(stRealDataInfo);
+//                         /* 保存播放窗口信息 */
+//                         m_mapLabelManage["labVideo3"] = stRealDataInfo;
+
+                        int ret1 = startRealData(stRealDataInfo);
+                        if(ret1 != 1)
+                        {
+                            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                        }
+                        else
+                        {
+                            /* 保存播放窗口信息 */
+                            m_mapLabelManage["labVideo3"] = stRealDataInfo;
+                        }
                     }
                 }
             }
@@ -959,16 +992,24 @@ bool VideoPlatform::startPlayVideo(QString strChlName, QObject *objIn)
                     stRealDataInfo.nWndNum = 4;
                     /* 向服务器发送请求视频消息 */
                     ret = this->sendSipMessageToServer(SIPMSGTYPE::InvitePriview, &stRealDataInfo);
-                    if(TRUE != ret)
+                    //ret = TRUE;
+                    if(TRUE != ret || (m_lpDevHandle == NULL))
                     {
                         QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
                     }
                     else
                     {
-                        QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
-                        startRealData(stRealDataInfo);
-                        /* 保存播放窗口信息 */
-                        m_mapLabelManage["labVideo4"] = stRealDataInfo;
+                        //QMessageBox::information(this, QString::fromLocal8Bit("信息！"), QStringLiteral("播放实况成功！"));
+                        int ret1 = startRealData(stRealDataInfo);
+                        if(ret1 != 1)
+                        {
+                            QMessageBox::information(this, QString::fromLocal8Bit("警告！"), QStringLiteral("请求播放视频失败！"));
+                        }
+                        else
+                        {
+                            /* 保存播放窗口信息 */
+                            m_mapLabelManage["labVideo4"] = stRealDataInfo;
+                        }
                     }
                 }
             }
@@ -993,5 +1034,9 @@ bool VideoPlatform::startRealData(SIPCOMMINFO &stRealDataIn)
     stNetInfo.dwLinkMode = NETDEV_TRANSPROTOCAL_RTPTCP;
     stRealDataIn.lPlayHandle = (LPVOID)NETDEV_RealPlay(m_lpDevHandle, &stNetInfo, NULL, 0);
 
+    if(stRealDataIn.lPlayHandle == NULL)
+    {
+        return FALSE;
+    }
     return TRUE;
 }

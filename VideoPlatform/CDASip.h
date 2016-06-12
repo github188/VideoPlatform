@@ -3,6 +3,9 @@
 #include <WinSock2.h>
 #include <eXosip2/eXosip.h>
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <WinSock2.h>
 
 class CDASip
 {
@@ -62,12 +65,37 @@ public:
       */
     void sip_quit(void);
 
+    /**
+     * 创建"MESSAGE"消息
+     */
+    int sip_message_build_request();
+
+    /**
+     * Set the Body of the SIP message.
+     * @param buf The buffer containing the body.
+     * @param length The length of the buffer.
+     */
+    int sip_message_set_body1(const char *buf, size_t length);
+
+    /**
+     * Set the Content-type header.
+     * @param hvalue The string describing the element.
+     */
+    int sip_message_set_content_type1(const char *hvalue);
+
+    /**
+     * 创建"MESSAGE"消息
+     */
+    int sip_message_send_request();
+
 protected:
 private:
     eXosip_event_t *m_sip_event_je;
     osip_message_t *m_sip_message_ack;
     osip_message_t *m_sip_message_invite;
     osip_message_t *m_sip_message_answer;
+    osip_message_t *m_sip_message_message;
+
     sdp_message_t *m_remote_sdp;
 
     char *m_pIdentity;

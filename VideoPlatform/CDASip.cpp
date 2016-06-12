@@ -94,6 +94,11 @@ bool CDASip::sip_client_receivemsg()
             }
             case EXOSIP_CALL_CLOSED:break;
             case EXOSIP_CALL_ACK:break;
+            case EXOSIP_CALL_REQUESTFAILURE:
+            {
+                /* 请求失败 */
+                return FALSE;
+            }
             default:
             {
                 break;
@@ -180,4 +185,46 @@ int CDASip::sip_call_send_initial_invite ()
     eXosip_unlock();
 
     return 1;
+}
+
+/**
+ * 发送消息
+ */
+int CDASip::sip_message_build_request()
+{
+    eXosip_message_build_request(&m_sip_message_message,"MESSAGE", m_pDest_call, m_pSource_call, NULL);
+
+    return true;
+}
+
+/**
+ * Set the Body of the SIP message.
+ * @param buf The buffer containing the body.
+ * @param length The length of the buffer.
+ */
+int CDASip::sip_message_set_body1(const char *buf, size_t length)
+{
+    osip_message_set_body(m_sip_message_message, buf, length);
+
+    return 1;
+}
+
+/**
+ * Set the Content-type header.
+ * @param hvalue The string describing the element.
+ */
+int CDASip::sip_message_set_content_type1(const char *hvalue)
+{
+    osip_message_set_content_type(m_sip_message_message, hvalue);
+
+    return 1;
+}
+
+/**
+ * 创建"MESSAGE"消息
+ */
+int CDASip::sip_message_send_request()
+{
+    eXosip_message_send_request(m_sip_message_message);
+    return true;
 }

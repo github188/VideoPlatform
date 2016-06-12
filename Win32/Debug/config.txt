@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+  <Device>
+	<item key = "DeviceName" value = "UNIVIEW" />
+	<item key = "DeviceIP" value = "192.168.1.160"/>
+	<item key = "DevicePort" value = "80"/>
+	<item key = "DeviceChlNum" value = "16"/>
+	<item key = "DeviceType" value = "1"/>
+	<item key = "DeviceLoginName" value = "admin"/>
+	<item key = "DeviceLoginPwd" value = "admin"/>
+	<item Key = "DeviceFirm" value = "UNIVIEW"/>
+  </Device>
+</configuration>

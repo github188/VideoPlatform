@@ -58,6 +58,7 @@ private:
     bool isLabelHasVideo(QObject *objIn); /* 判断窗口是否已经在播放视频 */
     bool startPlayVideo(QString strChlNameIn, QObject *objIn);  /* 播放视频 */
     bool startRealData(SIPCOMMINFO &stRealDataIn);    /* 启动实况视频 */
+    bool registerDevice();  /* 注册设备到服务器 */
 
     void removelayout();            /* 移除所有布局 */
     void change_video_1(int index); /* 改变1画面布局 */

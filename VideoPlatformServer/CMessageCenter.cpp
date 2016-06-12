@@ -18,20 +18,20 @@ std::map<int, CDADeviceInterface *> mapDeviceInfo;
  */
 int startRealData(void *paramIn)
 {
-    DEVICEINFO *pstDevInfo = (DEVICEINFO*)paramIn;
+    INVITEINFO *pstDevInfo = (INVITEINFO*)paramIn;
     std::map<int, CDADeviceInterface*>::iterator iterDevInfo;
-    void *paramOut;
     int ret = true;
 
     /* 判断该设备是否存在 */
     iterDevInfo = mapDeviceInfo.find(pstDevInfo->nDeviceID);
+    int count = mapDeviceInfo.size();
     if(mapDeviceInfo.end() != iterDevInfo)
     {
         /* 服务器中有该设备，执行打开实况操作*/
-        ret = iterDevInfo->second->getChannelObject(paramIn)->openChl(paramIn, paramOut);
+        ret = iterDevInfo->second->getChannelObject(paramIn)->openChl(paramIn);
         if(true != ret)
         {
-
+            return 0;
         }
         else
         {
@@ -41,10 +41,10 @@ int startRealData(void *paramIn)
     else
     {
         /* 不存在该设备 */
-        return false;
+        return 0;
     }
 
-    return true;
+    return 1;
 }
 /**
  @brief 结束实时预览总接口
@@ -65,7 +65,7 @@ int closeRealData(void *paramIn)
     if(mapDeviceInfo.end() != iterDevInfo)
     {
         /* 服务器中有该设备，执行打开实况操作*/
-        ret = iterDevInfo->second->getChannelObject(paramIn)->closeChl(paramIn, paramOut);
+        ret = iterDevInfo->second->getChannelObject(paramIn)->closeChl(paramIn/*, paramOut*/);
         if(true != ret)
         {
 
@@ -211,12 +211,12 @@ CMessageCenter::~CMessageCenter()
 /**
  @brief 消息处理中心
  @param[IN] void *paramMesgDataIn
- @param[IN] enMessageType enMesgType
+ @param[IN] SIPMSGTYPE enMesgType
  @return 
  - 成功 true
  - 失败 false
  */
-int CMessageCenter::messageCenter(void *paramMesgDataIn, enMessageType enMesgType)
+int CMessageCenter::messageCenter(void *paramMesgDataIn, SIPMSGTYPE enMesgType)
 {
     int ret = true;
     int ret1 = true;
@@ -312,5 +312,5 @@ int CMessageCenter::messageCenter(void *paramMesgDataIn, enMessageType enMesgTyp
         default:break;
     }
 
-    return true;
+    return ret1;
 }

@@ -41,13 +41,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Header Files;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Source Files;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\uniview;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\hik;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\dahua;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libexosip;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\include\include-libosip;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Header Files;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\CM\Source Files;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\uniview;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\hik;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\dahua;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\thirdpartsdk\Uniview\head Files;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\thirdpartsdk\Uniview\dll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Dnsapi.lib;Iphlpapi.lib;Ws2_32.lib;osip2.lib;osipparser2.lib;exosip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dnsapi.lib;Iphlpapi.lib;Ws2_32.lib;osip2.lib;osipparser2.lib;exosip.lib;NetDEVSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\paper~news\Desktop\VideoPlatform_1\VideoPlatformServer;C:\Users\paper~news\Desktop\VideoPlafrom_git\VideoPlatform\VideoPlatformServer\thirdpart\thirdpartsdk\Uniview\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
